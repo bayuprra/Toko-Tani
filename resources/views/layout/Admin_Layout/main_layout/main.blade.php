@@ -13,9 +13,14 @@
   <link rel="stylesheet" href="AdminLTE/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="AdminLTE/dist/css/adminlte.min.css">
+
+  <!-- DataTables -->
+  <link rel="stylesheet" href="AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="AdminLTE/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+  <link rel="stylesheet" href="AdminLTE/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
   @yield('style')
 </head>
-<body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+<body class="hold-transition light-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 <div class="wrapper">
 
   <!-- Preloader -->
@@ -24,7 +29,7 @@
   </div>
 
   <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-dark">
+  <nav class="main-header navbar navbar-expand navbar-light">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item">
@@ -170,12 +175,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Dashboard v2</h1>
+            <h1 class="m-0">{{ $title }}</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard v2</li>
+              <li class="breadcrumb-item"><a href="#">{{ $folder }}</a></li>
+              <li class="breadcrumb-item active">{{ $title }}</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -217,7 +222,19 @@
 <script src="AdminLTE/plugins/jquery-mapael/maps/usa_states.min.js"></script>
 <!-- ChartJS -->
 <script src="AdminLTE/plugins/chart.js/Chart.min.js"></script>
-
+{{-- datatables --}}
+<script src="AdminLTE/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="AdminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="AdminLTE/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="AdminLTE/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="AdminLTE/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+<script src="AdminLTE/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+<script src="AdminLTE/plugins/jszip/jszip.min.js"></script>
+<script src="AdminLTE/plugins/pdfmake/pdfmake.min.js"></script>
+<script src="AdminLTE/plugins/pdfmake/vfs_fonts.js"></script>
+<script src="AdminLTE/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+<script src="AdminLTE/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+<script src="AdminLTE/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="AdminLTE/dist/js/pages/dashboard2.js"></script>
@@ -238,6 +255,6 @@
         .addClass('active');
 });
 </script>
-@yield('js')
+@yield('script')
 </body>
 </html>

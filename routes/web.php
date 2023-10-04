@@ -14,8 +14,20 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/dashboard', function () {
-    return view('layout/Admin_Layout/dashboard');
+    return view('layout/Admin_Layout/dashboard', [
+        'title' => "Dashboard",
+        'folder'    => "Home",
+    ]);
 });
 Route::get('/produk', function () {
-    return view('layout/Admin_Layout/produk');
+    return view('layout/Admin_Layout/produk', [
+        'title' => "Data Produk",
+        'folder'    => "Produk",
+    ]);
+});
+Route::get('/customer', function () {
+    return view('layout/Admin_Layout/customer', [
+        'title' => "Data Customer",
+        'folder'    => "Customer",
+    ]);
 });

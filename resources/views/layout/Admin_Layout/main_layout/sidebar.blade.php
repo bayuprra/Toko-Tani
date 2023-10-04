@@ -58,7 +58,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="AdminLTE/pages/charts/chartjs.html" class="nav-link">
+                <a href="/customer" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Data Customer</p>
                 </a>
@@ -80,7 +80,18 @@
                   <p>Data Order</p>
                 </a>
               </li>
-
+              <li class="nav-item">
+                <a href="/order" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Data Transaksi</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/order" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Data Pengiriman</p>
+                </a>
+              </li>
             </ul>
           </li>
           {{-- <li class="nav-item">
