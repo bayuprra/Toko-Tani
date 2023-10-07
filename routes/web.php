@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,9 +27,14 @@ Route::get('/produk', function () {
         'folder'    => "Produk",
     ]);
 });
-Route::get('/customer', function () {
-    return view('layout/Admin_Layout/customer', [
-        'title' => "Data Customer",
-        'folder'    => "Customer",
-    ]);
-});
+Route::get('/customer', [AdminController::class, 'dataCustomer']);
+
+
+Route::get('/login', [AuthController::class, 'login'])->middleware('guest');
+Route::post('/login', [AuthController::class, 'authentikasi']);
+
+Route::post('/logout', [AuthController::class, 'logout']);
+
+
+Route::get('/register', [AuthController::class, 'register'])->middleware('guest');
+Route::post('/register', [AuthController::class, 'store']);
