@@ -17,7 +17,9 @@ class DatabaseSeeder extends Seeder
         $this->call([
             role_seeder::class,
             account_seeder::class,
-            customer_seeder::class
+            customer_seeder::class,
+            kategori_produk_seeder::class,
+            merk_produk_seeder::class,
         ]);
     }
 }

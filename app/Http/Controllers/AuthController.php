@@ -56,7 +56,7 @@ class AuthController extends Controller
         ]);
         $user = $this->accountModel::where('email', $cred['email'])->first();
         if ($user && password_verify($cred['password'], $user->password)) {
-            Auth::attempt(['email' => $cred['email'], 'password' => $cred['password']]);
+            Auth::login($user);
             $request->session()->regenerate();
             return redirect()->intended('/dashboard');
         }

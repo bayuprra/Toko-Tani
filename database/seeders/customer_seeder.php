@@ -19,7 +19,7 @@ class customer_seeder extends Seeder
             [
                 'created_at'    => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at'    => Carbon::now()->format('Y-m-d H:i:s'),
-                'name'          => 'usersatu',
+                'nama'          => 'usersatu',
                 'phone'         => '9897877',
                 'alamat'        => 'jl. maju makmur nomor 2',
                 'account_id'    => 2,
@@ -27,7 +27,7 @@ class customer_seeder extends Seeder
             [
                 'created_at'    => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at'    => Carbon::now()->format('Y-m-d H:i:s'),
-                'name'          => 'userdua',
+                'nama'          => 'userdua',
                 'phone'         => '',
                 'alamat'        => '',
                 'account_id'    => 3,

@@ -27,14 +27,14 @@ Route::get('/produk', function () {
         'folder'    => "Produk",
     ]);
 });
-Route::get('/customer', [AdminController::class, 'dataCustomer']);
+Route::get('/customer', [AdminController::class, 'dataCustomer'])->middleware('auth');
 
 
-Route::get('/login', [AuthController::class, 'login'])->middleware('guest');
+Route::get('/login', [AuthController::class, 'login'])->name('login')->middleware('guest');
 Route::post('/login', [AuthController::class, 'authentikasi']);
 
-Route::post('/logout', [AuthController::class, 'logout']);
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth');
 
 
 Route::get('/register', [AuthController::class, 'register'])->middleware('guest');
-Route::post('/register', [AuthController::class, 'store']);
+Route::post('/register', [AuthController::class, 'store'])->middleware('auth');
