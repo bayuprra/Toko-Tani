@@ -56,9 +56,18 @@ class AuthController extends Controller
         ]);
         $user = $this->accountModel::where('email', $cred['email'])->first();
         if ($user && password_verify($cred['password'], $user->password)) {
-            Auth::login($user);
-            $request->session()->regenerate();
-            return redirect()->intended('/dashboard');
+            if (Auth::attempt($cred)) {
+                $dataAkun = $this->accountModel->getAdminLoginData($user->id);
+                if ($user->role_id != 1) {
+                    $dataAkun = $this->accountModel->getCustomerLoginData($user->id);
+                }
+                $request->session()->put('data', $dataAkun);
+                $request->session()->regenerate();
+                if ($user->role_id != 1) {
+                    return redirect()->intended('/');
+                }
+                return redirect()->intended('/dashboard');
+            }
         }
         return back()->with('error', 'Email atau Password Salah');
     }

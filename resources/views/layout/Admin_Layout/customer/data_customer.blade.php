@@ -36,10 +36,13 @@
                 </tr>
                 </thead>
                 <tbody>
+                  <?php 
+                    $num = 1;
+                    ?>
                   @foreach($data as $p)
                     <tr>
-                      <td>1</td>
-                      <td>{{ $p->name }}</td>
+                      <td>{{ $num++ }}</td>
+                      <td>{{ $p->nama }}</td>
                       <td>{{ $p->account->email }}</td>
                       <td>{{ $p->phone }}</td>
                       <td>{{ $p->alamat }}</td>
@@ -79,7 +82,7 @@
                 <div class="row">
                 <div class="form-group col-6">
                   <label for="nama">Nama</label>
-                  <input type="text" class="form-control" id="nama" placeholder="nama" value="{{ $p->name }}">
+                  <input type="text" class="form-control" id="nama" placeholder="nama" value="{{ $p->nama }}">
                 </div><div class="form-group col-6">
                   <label for="hp">No Hp</label>
                   <input type="number" class="form-control" id="hp" placeholder="hp" value="{{ $p->phone }}">

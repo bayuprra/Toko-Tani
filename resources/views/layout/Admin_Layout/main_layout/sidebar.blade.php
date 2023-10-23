@@ -41,6 +41,22 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
+                <a href="/kategori" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Data Kategori Produk</p>
+                </a>
+              </li>
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/merk" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Data Merk Produk</p>
+                </a>
+              </li>
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
                 <a href="/produk" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Data Produk</p>

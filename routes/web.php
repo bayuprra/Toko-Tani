@@ -15,20 +15,32 @@ use App\Http\Controllers\AuthController;
 |
 */
 
-Route::get('/dashboard', function () {
-    return view('layout/Admin_Layout/dashboard', [
-        'title' => "Dashboard",
-        'folder'    => "Home",
-    ]);
+Route::get('/', function () {
+    return view('welcome');
 });
-Route::get('/produk', function () {
-    return view('layout/Admin_Layout/produk', [
-        'title' => "Data Produk",
-        'folder'    => "Produk",
-    ]);
-});
-Route::get('/customer', [AdminController::class, 'dataCustomer'])->middleware('auth');
 
+Route::controller(AdminController::class)->middleware('auth')->group(function () {
+    Route::get('/dashboard', 'dashboard');
+    Route::get('/customer', 'dataCustomer');
+
+    // produk
+    Route::get('/produk', 'dataProduk');
+    Route::post('/produk', 'storeProduk');
+    Route::post('/updateProduk/{id}', 'updateProduk');
+    Route::delete('/deleteProduk/{id}', 'deleteProduk')->name('deleteProduk');
+
+    // kategori
+    Route::get('/kategori', 'kategoriProduk');
+    Route::post('/kategori', 'storeKategori');
+    Route::post('/updateKategori/{id}', 'updateKategori');
+    Route::delete('/deleteKategori/{id}', 'deleteKategori')->name('deleteKategori');
+
+    // merk
+    Route::get('/merk', 'merkProduk');
+    Route::post('/merk', 'storeMerk');
+    Route::post('/updateMerk/{id}', 'updateMerk');
+    Route::delete('/deleteMerk/{id}', 'deleteMerk')->name('deleteMerk');
+});
 
 Route::get('/login', [AuthController::class, 'login'])->name('login')->middleware('guest');
 Route::post('/login', [AuthController::class, 'authentikasi']);

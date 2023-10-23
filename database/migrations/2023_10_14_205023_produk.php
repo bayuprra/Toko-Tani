@@ -19,6 +19,7 @@ class Produk extends Migration
                 ->constrained('merk_produk');
             $table->foreignId('kategori_produk_id')
                 ->constrained('kategori_produk');
+            $table->string('nama');
             $table->string('satuan');
             $table->integer('harga');
             $table->integer('qty');
