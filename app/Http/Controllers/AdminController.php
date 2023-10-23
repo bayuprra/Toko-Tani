@@ -19,7 +19,9 @@ class AdminController extends Controller
         ]);
     }
 
-    /**\ Customer */
+    //<---- Customer ---->
+
+    /**\ Tampilan */
 
     public function dataCustomer()
     {
@@ -28,6 +30,39 @@ class AdminController extends Controller
             'folder'    => "Customer",
             'data'      => $this->customerModel->get()
         ]);
+    }
+
+    /**\ Update */
+    public function updateCustomer(Request $request, $id)
+    {
+        $dataForm = $request->all();
+        $data = $this->customerModel->find($id);
+        if (!$dataForm['phone']) {
+            $dataForm['phone'] = " ";
+        }
+        if (!$dataForm['alamat']) {
+            $dataForm['alamat'] = " ";
+        }
+        $updateData = $data->update($dataForm);
+        if ($updateData) {
+            return redirect()->back()->with('success', 'Customer Berhasil Diubah');
+        }
+        return redirect()->back()->with('error', 'Customer Gagal Diubah');
+    }
+
+    /**\ Delete */
+    public function deleteCustomer($id)
+    {
+        $data = $this->customerModel->find($id);
+        $account = $this->accountModel->find($data->account_id);
+
+        $deleteData = $data->delete();
+        $deleteDataAkun = $account->delete();
+
+        if ($deleteData && $deleteDataAkun) {
+            return redirect()->back()->with('success', 'Customer Berhasil Dihapus');
+        }
+        return redirect()->back()->with('error', 'Customer Gagal Dihapus');
     }
 
     //<---- Produk ---->
@@ -45,6 +80,7 @@ class AdminController extends Controller
         );
         return view('layout/Admin_Layout/produk/data_produk', $data);
     }
+
 
     /**\ Create */
     public function storeProduk(Request $request)

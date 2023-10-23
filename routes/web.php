@@ -21,7 +21,12 @@ Route::get('/', function () {
 
 Route::controller(AdminController::class)->middleware('auth')->group(function () {
     Route::get('/dashboard', 'dashboard');
+
+    // customer
     Route::get('/customer', 'dataCustomer');
+    Route::post('/customer', 'storeProduk');
+    Route::post('/updateCustomer/{id}', 'updateCustomer');
+    Route::delete('/deleteCustomer/{id}', 'deleteCustomer')->name('deleteCustomer');
 
     // produk
     Route::get('/produk', 'dataProduk');
