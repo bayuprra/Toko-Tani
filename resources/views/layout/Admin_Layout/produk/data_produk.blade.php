@@ -315,7 +315,7 @@
                 "lengthChange": false,
                 "autoWidth": false,
                 "buttons": [{
-                    "text": "Tambah Customer",
+                    "text": "Tambah Produk",
                     "className": "btn btn-primary btn-info",
                     "action": function() {
                         $('#modal-add').modal('show');

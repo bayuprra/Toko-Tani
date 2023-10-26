@@ -16,8 +16,9 @@ use App\Http\Controllers\AuthController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('layout/User_Layout/main');
 });
+
 
 Route::controller(AdminController::class)->middleware('auth')->group(function () {
     Route::get('/dashboard', 'dashboard');
