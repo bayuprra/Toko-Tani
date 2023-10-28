@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,10 +16,11 @@ use App\Http\Controllers\AuthController;
 |
 */
 
-Route::get('/', function () {
-    return view('layout/User_Layout/main');
-});
 
+Route::controller(UserController::class)->group(function () {
+    Route::get('/', 'index');
+    Route::get('/{produk}', 'produk');
+});
 
 Route::controller(AdminController::class)->middleware('auth')->group(function () {
     Route::get('/dashboard', 'dashboard');

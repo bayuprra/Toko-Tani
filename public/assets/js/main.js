@@ -115,7 +115,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const hashIndex = url.indexOf('#');
     if (hashIndex !== -1) {
       const hash = url.slice(hashIndex);
-      console.log(hash);
       if (document.querySelector(hash)) {
         setTimeout(() => {
           let section = document.querySelector(hash);

@@ -29,4 +29,12 @@ class Produk extends Model
             ->select('produk.*', 'kategori_produk.nama as kategori', 'merk_produk.nama as merk')
             ->get();
     }
+
+    public function produkByKategori($idKategori)
+    {
+        return DB::table('produk')->where('kategori_produk_id', $idKategori)
+            ->join('kategori_produk', 'kategori_produk.id', '=', 'produk.kategori_produk_id')
+            ->join('merk_produk', 'merk_produk.id', '=', 'produk.merk_produk_id')
+            ->select('produk.*', 'kategori_produk.nama as kategori', 'merk_produk.nama as merk');
+    }
 }
