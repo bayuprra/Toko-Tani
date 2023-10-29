@@ -18,10 +18,10 @@
                 </div>
                 <ul>
                     <li class=" topHome"><a href="/#welcome" class="active">Home</a></li>
-                    <li class=" topKategori"><a href="/#services">Kategori</a></li>
+                    <li class=" topKategori"><a href="/#Produk">Produk</a></li>
                     <li class=" topKontak"><a href="/#contact">Kontak</a></li>
                     <li class="dropdown has-dropdown">
-                        <a href="#"><span>Produk</span> <i class="bi bi-chevron-down"></i></a>
+                        <a href="#"><span>Kategori</span> <i class="bi bi-chevron-down"></i></a>
                         <ul class="dd-box-shadow">
                             @foreach ($kategori as $kat)
                                 <li><a href="/{{ $kat->nama }}">{{ $kat->nama }}</a></li>

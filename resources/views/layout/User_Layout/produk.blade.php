@@ -121,7 +121,7 @@
 
                 <div class="row gy-4 posts-list">
                     @foreach ($data as $produk)
-                        <div class="col-xl-4 col-lg-6">
+                        <div class="col-xl-3 col-lg-2 col-2">
                             <article>
                                 <div class="post-img">
                                     <img src="produk/{{ $produk->gambar }}" alt="" class="img-fluid"
@@ -131,7 +131,7 @@
                                 <p class="post-category">{{ $produk->kategori }}</p>
 
                                 <h2 class="title">
-                                    <a href="blog-details.html">{{ $produk->merk }}</a>
+                                    <a href="/{{ $produk->kategori }}/{{ $produk->merk }}">{{ $produk->merk }}</a>
                                 </h2>
 
                                 <div class="d-flex align-items-center">

@@ -19,7 +19,8 @@ use App\Http\Controllers\UserController;
 
 Route::controller(UserController::class)->group(function () {
     Route::get('/', 'index');
-    Route::get('/{produk}', 'produk');
+    Route::get('/{kategori}', 'kategori');
+    Route::get('/{kategori}/{produk}', 'produk');
 });
 
 Route::controller(AdminController::class)->middleware('auth')->group(function () {

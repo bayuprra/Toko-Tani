@@ -21,7 +21,7 @@
                     </div>
                     <div class="col-lg-5">
                         <div class="sign-up-form d-flex" data-aos="fade-up" data-aos-delay="300">
-                            <a href="#services"><input type="submit" class="btn btn-primary" value="Shop Now" /></a>
+                            <a href="#Produk"><input type="submit" class="btn btn-primary" value="Shop Now" /></a>
                         </div>
                     </div>
                 </div>
@@ -29,41 +29,16 @@
         <!-- End Hero Section -->
 
         <!-- Clients Section - Home Page -->
-        <section id="clients" class="clients">
+        {{-- <section id="clients" class="clients">
             <div class="container-fluid" data-aos="fade-up">
                 <div class="row gy-4">
-                    <div class="col-xl-2 col-md-3 col-6 client-logo">
-                        <img src="assets/img/clients/client-1.png" class="img-fluid" alt="" />
-                    </div>
-                    <!-- End Client Item -->
-
-                    <div class="col-xl-2 col-md-3 col-6 client-logo">
-                        <img src="assets/img/clients/client-2.png" class="img-fluid" alt="" />
-                    </div>
-                    <!-- End Client Item -->
-
-                    <div class="col-xl-2 col-md-3 col-6 client-logo">
-                        <img src="assets/img/clients/client-3.png" class="img-fluid" alt="" />
-                    </div>
-                    <!-- End Client Item -->
-
-                    <div class="col-xl-2 col-md-3 col-6 client-logo">
-                        <img src="assets/img/clients/client-4.png" class="img-fluid" alt="" />
-                    </div>
-                    <!-- End Client Item -->
-
-                    <div class="col-xl-2 col-md-3 col-6 client-logo">
-                        <img src="assets/img/clients/client-5.png" class="img-fluid" alt="" />
-                    </div>
-                    <!-- End Client Item -->
-
-                    <div class="col-xl-2 col-md-3 col-6 client-logo">
-                        <img src="assets/img/clients/client-6.png" class="img-fluid" alt="" />
+                    <div class="col-xl-12 col-md-12 col-12 client-logo">
+                        <img src="logo.png" class="img-fluid" alt="" />
                     </div>
                     <!-- End Client Item -->
                 </div>
             </div>
-        </section>
+        </section> --}}
         <!-- End Clients Section -->
 
         <!-- About Section - Home Page -->
@@ -105,43 +80,35 @@
 
         <!-- Stats Section - Home Page -->
         <section id="stats" class="stats">
-            <img src="assets/img/stats-bg.jpg" alt="" data-aos="fade-in" />
+            <img src="assets/img/slider/bibit.jpg" alt="" data-aos="fade-in" />
 
             <div class="container position-relative" data-aos="fade-up" data-aos-delay="100">
                 <div class="row gy-4">
                     <div class="col-lg-3 col-md-6">
+
+                    </div>
+                    <!-- End Stats Item -->
+
+                    <div class="col-lg-3 col-md-6">
                         <div class="stats-item text-center w-100 h-100">
-                            <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1"
-                                class="purecounter"></span>
-                            <p>Clients</p>
+                            <span data-purecounter-start="0" data-purecounter-end="{{ count($produk) }}"
+                                data-purecounter-duration="1" class="purecounter"></span>
+                            <p>Produk</p>
                         </div>
                     </div>
                     <!-- End Stats Item -->
 
                     <div class="col-lg-3 col-md-6">
                         <div class="stats-item text-center w-100 h-100">
-                            <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1"
-                                class="purecounter"></span>
-                            <p>Projects</p>
+                            <span data-purecounter-start="0" data-purecounter-end="{{ count($kategori) }}"
+                                data-purecounter-duration="1" class="purecounter"></span>
+                            <p>Kategori</p>
                         </div>
                     </div>
                     <!-- End Stats Item -->
 
                     <div class="col-lg-3 col-md-6">
-                        <div class="stats-item text-center w-100 h-100">
-                            <span data-purecounter-start="0" data-purecounter-end="1453" data-purecounter-duration="1"
-                                class="purecounter"></span>
-                            <p>Hours Of Support</p>
-                        </div>
-                    </div>
-                    <!-- End Stats Item -->
 
-                    <div class="col-lg-3 col-md-6">
-                        <div class="stats-item text-center w-100 h-100">
-                            <span data-purecounter-start="0" data-purecounter-end="32" data-purecounter-duration="1"
-                                class="purecounter"></span>
-                            <p>Workers</p>
-                        </div>
                     </div>
                     <!-- End Stats Item -->
                 </div>
@@ -150,7 +117,7 @@
         <!-- End Stats Section -->
 
         <!-- Services Section - Home Page -->
-        <section id="services" class="services">
+        <section id="Produk" class="services">
             <!--  Section Title -->
             <div class="container section-title" data-aos="fade-up">
                 <h2>Produk</h2>
@@ -187,361 +154,14 @@
         </section>
         <!-- End Services Section -->
 
-        <!-- Features Section - Home Page -->
-        <section id="features" class="features">
-            <!--  Section Title -->
-            <div class="container section-title" data-aos="fade-up">
-                <h2>Features</h2>
-                <p>
-                    Necessitatibus eius consequatur ex aliquid fuga eum quidem sint
-                    consectetur velit
-                </p>
-            </div>
-            <!-- End Section Title -->
-
-            <div class="container">
-                <div class="row gy-4 align-items-center features-item">
-                    <div class="col-lg-5 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
-                        <h3>Corporis temporibus maiores provident</h3>
-                        <p>
-                            Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
-                            aute irure dolor in reprehenderit in voluptate velit esse cillum
-                            dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                            cupidatat non proident.
-                        </p>
-                        <a href="#" class="btn btn-get-started">Get Started</a>
-                    </div>
-                    <div class="col-lg-7 order-1 order-lg-2 d-flex align-items-center" data-aos="zoom-out"
-                        data-aos-delay="100">
-                        <div class="image-stack">
-                            <img src="assets/img/features-light-1.jpg" alt="" class="stack-front" />
-                            <img src="assets/img/features-light-2.jpg" alt="" class="stack-back" />
-                        </div>
-                    </div>
-                </div>
-                <!-- Features Item -->
-
-                <div class="row gy-4 align-items-stretch justify-content-between features-item">
-                    <div class="col-lg-6 d-flex align-items-center features-img-bg" data-aos="zoom-out">
-                        <img src="assets/img/features-light-3.jpg" class="img-fluid" alt="" />
-                    </div>
-                    <div class="col-lg-5 d-flex justify-content-center flex-column" data-aos="fade-up">
-                        <h3>Sunt consequatur ad ut est nulla</h3>
-                        <p>
-                            Cupiditate placeat cupiditate placeat est ipsam culpa. Delectus
-                            quia minima quod. Sunt saepe odit aut quia voluptatem hic
-                            voluptas dolor doloremque.
-                        </p>
-                        <ul>
-                            <li>
-                                <i class="bi bi-check"></i>
-                                <span>Ullamco laboris nisi ut aliquip ex ea commodo
-                                    consequat.</span>
-                            </li>
-                            <li>
-                                <i class="bi bi-check"></i><span>
-                                    Duis aute irure dolor in reprehenderit in voluptate
-                                    velit.</span>
-                            </li>
-                            <li>
-                                <i class="bi bi-check"></i>
-                                <span>Facilis ut et voluptatem aperiam. Autem soluta ad
-                                    fugiat</span>.
-                            </li>
-                        </ul>
-                        <a href="#" class="btn btn-get-started align-self-start">Get Started</a>
-                    </div>
-                </div>
-                <!-- Features Item -->
-            </div>
-        </section>
-        <!-- End Features Section -->
-
-        <!-- End Portfolio Section -->
-
-        <!-- Pricing Section - Home Page -->
-        <section id="pricing" class="pricing">
-            <!--  Section Title -->
-            <div class="container section-title" data-aos="fade-up">
-                <h2>Pricing</h2>
-                <p>
-                    Necessitatibus eius consequatur ex aliquid fuga eum quidem sint
-                    consectetur velit
-                </p>
-            </div>
-            <!-- End Section Title -->
-
-            <div class="container" data-aos="zoom-in" data-aos-delay="100">
-                <div class="row g-4">
-                    <div class="col-lg-4">
-                        <div class="pricing-item">
-                            <h3>Free Plan</h3>
-                            <div class="icon">
-                                <i class="bi bi-box"></i>
-                            </div>
-                            <h4><sup>$</sup>0<span> / month</span></h4>
-                            <ul>
-                                <li>
-                                    <i class="bi bi-check"></i>
-                                    <span>Quam adipiscing vitae proin</span>
-                                </li>
-                                <li>
-                                    <i class="bi bi-check"></i>
-                                    <span>Nec feugiat nisl pretium</span>
-                                </li>
-                                <li>
-                                    <i class="bi bi-check"></i>
-                                    <span>Nulla at volutpat diam uteera</span>
-                                </li>
-                                <li class="na">
-                                    <i class="bi bi-x"></i>
-                                    <span>Pharetra massa massa ultricies</span>
-                                </li>
-                                <li class="na">
-                                    <i class="bi bi-x"></i>
-                                    <span>Massa ultricies mi quis hendrerit</span>
-                                </li>
-                            </ul>
-                            <div class="text-center">
-                                <a href="#" class="buy-btn">Buy Now</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Pricing Item -->
-
-                    <div class="col-lg-4">
-                        <div class="pricing-item featured">
-                            <h3>Business Plan</h3>
-                            <div class="icon">
-                                <i class="bi bi-rocket"></i>
-                            </div>
-
-                            <h4><sup>$</sup>29<span> / month</span></h4>
-                            <ul>
-                                <li>
-                                    <i class="bi bi-check"></i>
-                                    <span>Quam adipiscing vitae proin</span>
-                                </li>
-                                <li>
-                                    <i class="bi bi-check"></i>
-                                    <span>Nec feugiat nisl pretium</span>
-                                </li>
-                                <li>
-                                    <i class="bi bi-check"></i>
-                                    <span>Nulla at volutpat diam uteera</span>
-                                </li>
-                                <li>
-                                    <i class="bi bi-check"></i>
-                                    <span>Pharetra massa massa ultricies</span>
-                                </li>
-                                <li>
-                                    <i class="bi bi-check"></i>
-                                    <span>Massa ultricies mi quis hendrerit</span>
-                                </li>
-                            </ul>
-                            <div class="text-center">
-                                <a href="#" class="buy-btn">Buy Now</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Pricing Item -->
-
-                    <div class="col-lg-4">
-                        <div class="pricing-item">
-                            <h3>Developer Plan</h3>
-                            <div class="icon">
-                                <i class="bi bi-send"></i>
-                            </div>
-                            <h4><sup>$</sup>49<span> / month</span></h4>
-                            <ul>
-                                <li>
-                                    <i class="bi bi-check"></i>
-                                    <span>Quam adipiscing vitae proin</span>
-                                </li>
-                                <li>
-                                    <i class="bi bi-check"></i>
-                                    <span>Nec feugiat nisl pretium</span>
-                                </li>
-                                <li>
-                                    <i class="bi bi-check"></i>
-                                    <span>Nulla at volutpat diam uteera</span>
-                                </li>
-                                <li>
-                                    <i class="bi bi-check"></i>
-                                    <span>Pharetra massa massa ultricies</span>
-                                </li>
-                                <li>
-                                    <i class="bi bi-check"></i>
-                                    <span>Massa ultricies mi quis hendrerit</span>
-                                </li>
-                            </ul>
-                            <div class="text-center">
-                                <a href="#" class="buy-btn">Buy Now</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Pricing Item -->
-                </div>
-            </div>
-        </section>
-        <!-- End Pricing Section -->
-
-        <!-- Faq Section - Home Page -->
-        <section id="faq" class="faq">
-            <div class="container">
-                <div class="row gy-4">
-                    <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
-                        <div class="content px-xl-5">
-                            <h3>
-                                <span>Frequently Asked </span><strong>Questions</strong>
-                            </h3>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                                do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                Duis aute irure dolor in reprehenderit
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
-                        <div class="faq-container">
-                            <div class="faq-item faq-active">
-                                <h3>
-                                    <span class="num">1.</span>
-                                    <span>Non consectetur a erat nam at lectus urna duis?</span>
-                                </h3>
-                                <div class="faq-content">
-                                    <p>
-                                        Feugiat pretium nibh ipsum consequat. Tempus iaculis urna
-                                        id volutpat lacus laoreet non curabitur gravida. Venenatis
-                                        lectus magna fringilla urna porttitor rhoncus dolor purus
-                                        non.
-                                    </p>
-                                </div>
-                                <i class="faq-toggle bi bi-chevron-right"></i>
-                            </div>
-                            <!-- End Faq item-->
-
-                            <div class="faq-item">
-                                <h3>
-                                    <span class="num">2.</span>
-                                    <span>Feugiat scelerisque varius morbi enim nunc faucibus a
-                                        pellentesque?</span>
-                                </h3>
-                                <div class="faq-content">
-                                    <p>
-                                        Dolor sit amet consectetur adipiscing elit pellentesque
-                                        habitant morbi. Id interdum velit laoreet id donec
-                                        ultrices. Fringilla phasellus faucibus scelerisque
-                                        eleifend donec pretium. Est pellentesque elit ullamcorper
-                                        dignissim. Mauris ultrices eros in cursus turpis massa
-                                        tincidunt dui.
-                                    </p>
-                                </div>
-                                <i class="faq-toggle bi bi-chevron-right"></i>
-                            </div>
-                            <!-- End Faq item-->
-
-                            <div class="faq-item">
-                                <h3>
-                                    <span class="num">3.</span>
-                                    <span>Dolor sit amet consectetur adipiscing elit
-                                        pellentesque?</span>
-                                </h3>
-                                <div class="faq-content">
-                                    <p>
-                                        Eleifend mi in nulla posuere sollicitudin aliquam ultrices
-                                        sagittis orci. Faucibus pulvinar elementum integer enim.
-                                        Sem nulla pharetra diam sit amet nisl suscipit. Rutrum
-                                        tellus pellentesque eu tincidunt. Lectus urna duis
-                                        convallis convallis tellus. Urna molestie at elementum eu
-                                        facilisis sed odio morbi quis
-                                    </p>
-                                </div>
-                                <i class="faq-toggle bi bi-chevron-right"></i>
-                            </div>
-                            <!-- End Faq item-->
-
-                            <div class="faq-item">
-                                <h3>
-                                    <span class="num">4.</span>
-                                    <span>Ac odio tempor orci dapibus. Aliquam eleifend mi in
-                                        nulla?</span>
-                                </h3>
-                                <div class="faq-content">
-                                    <p>
-                                        Dolor sit amet consectetur adipiscing elit pellentesque
-                                        habitant morbi. Id interdum velit laoreet id donec
-                                        ultrices. Fringilla phasellus faucibus scelerisque
-                                        eleifend donec pretium. Est pellentesque elit ullamcorper
-                                        dignissim. Mauris ultrices eros in cursus turpis massa
-                                        tincidunt dui.
-                                    </p>
-                                </div>
-                                <i class="faq-toggle bi bi-chevron-right"></i>
-                            </div>
-                            <!-- End Faq item-->
-
-                            <div class="faq-item">
-                                <h3>
-                                    <span class="num">5.</span>
-                                    <span>Tempus quam pellentesque nec nam aliquam sem et tortor
-                                        consequat?</span>
-                                </h3>
-                                <div class="faq-content">
-                                    <p>
-                                        Molestie a iaculis at erat pellentesque adipiscing
-                                        commodo. Dignissim suspendisse in est ante in. Nunc vel
-                                        risus commodo viverra maecenas accumsan. Sit amet nisl
-                                        suscipit adipiscing bibendum est. Purus gravida quis
-                                        blandit turpis cursus in
-                                    </p>
-                                </div>
-                                <i class="faq-toggle bi bi-chevron-right"></i>
-                            </div>
-                            <!-- End Faq item-->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- End Faq Section -->
-
-
-        <!-- Call-to-action Section - Home Page -->
-        <section id="call-to-action" class="call-to-action">
-            <img src="assets/img/cta-bg.jpg" alt="" />
-
-            <div class="container">
-                <div class="row justify-content-center" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="col-xl-10">
-                        <div class="text-center">
-                            <h3>Call To Action</h3>
-                            <p>
-                                Duis aute irure dolor in reprehenderit in voluptate velit esse
-                                cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                                occaecat cupidatat non proident, sunt in culpa qui officia
-                                deserunt mollit anim id est laborum.
-                            </p>
-                            <a class="cta-btn" href="#">Call To Action</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- End Call-to-action Section -->
-
         <!-- Testimonials Section - Home Page -->
         <section id="testimonials" class="testimonials">
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-lg-5 info" data-aos="fade-up" data-aos-delay="100">
-                        <h3>Testimonials</h3>
+                        <h3>Testimoni</h3>
                         <p>
-                            Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
-                            aute irure dolor in reprehenderit in voluptate velit esse cillum
-                            dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                            cupidatat non proident.
+                            Testimoni Para Pembeli Kami
                         </p>
                     </div>
 
@@ -696,112 +316,13 @@
         </section>
         <!-- End Testimonials Section -->
 
-        <!-- Recent-posts Section - Home Page -->
-        <section id="recent-posts" class="recent-posts">
-            <!--  Section Title -->
-            <div class="container section-title" data-aos="fade-up">
-                <h2>Recent Posts</h2>
-                <p>
-                    Necessitatibus eius consequatur ex aliquid fuga eum quidem sint
-                    consectetur velit
-                </p>
-            </div>
-            <!-- End Section Title -->
-
-            <div class="container">
-                <div class="row gy-4">
-                    <div class="col-xl-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-                        <article>
-                            <div class="post-img">
-                                <img src="assets/img/blog/blog-1.jpg" alt="" class="img-fluid" />
-                            </div>
-
-                            <p class="post-category">Politics</p>
-
-                            <h2 class="title">
-                                <a href="blog-details.html">Dolorum optio tempore voluptas dignissimos</a>
-                            </h2>
-
-                            <div class="d-flex align-items-center">
-                                <img src="assets/img/blog/blog-author.jpg" alt=""
-                                    class="img-fluid post-author-img flex-shrink-0" />
-                                <div class="post-meta">
-                                    <p class="post-author">Maria Doe</p>
-                                    <p class="post-date">
-                                        <time datetime="2022-01-01">Jan 1, 2022</time>
-                                    </p>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
-                    <!-- End post list item -->
-
-                    <div class="col-xl-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-                        <article>
-                            <div class="post-img">
-                                <img src="assets/img/blog/blog-2.jpg" alt="" class="img-fluid" />
-                            </div>
-
-                            <p class="post-category">Sports</p>
-
-                            <h2 class="title">
-                                <a href="blog-details.html">Nisi magni odit consequatur autem nulla dolorem</a>
-                            </h2>
-
-                            <div class="d-flex align-items-center">
-                                <img src="assets/img/blog/blog-author-2.jpg" alt=""
-                                    class="img-fluid post-author-img flex-shrink-0" />
-                                <div class="post-meta">
-                                    <p class="post-author">Allisa Mayer</p>
-                                    <p class="post-date">
-                                        <time datetime="2022-01-01">Jun 5, 2022</time>
-                                    </p>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
-                    <!-- End post list item -->
-
-                    <div class="col-xl-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
-                        <article>
-                            <div class="post-img">
-                                <img src="assets/img/blog/blog-3.jpg" alt="" class="img-fluid" />
-                            </div>
-
-                            <p class="post-category">Entertainment</p>
-
-                            <h2 class="title">
-                                <a href="blog-details.html">Possimus soluta ut id suscipit ea ut in quo quia et
-                                    soluta</a>
-                            </h2>
-
-                            <div class="d-flex align-items-center">
-                                <img src="assets/img/blog/blog-author-3.jpg" alt=""
-                                    class="img-fluid post-author-img flex-shrink-0" />
-                                <div class="post-meta">
-                                    <p class="post-author">Mark Dower</p>
-                                    <p class="post-date">
-                                        <time datetime="2022-01-01">Jun 22, 2022</time>
-                                    </p>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
-                    <!-- End post list item -->
-                </div>
-                <!-- End recent posts list -->
-            </div>
-        </section>
-        <!-- End Recent-posts Section -->
-
         <!-- Contact Section - Home Page -->
         <section id="contact" class="contact">
             <!--  Section Title -->
             <div class="container section-title" data-aos="fade-up">
-                <h2>Contact</h2>
+                <h2>Kontak</h2>
                 <p>
-                    Necessitatibus eius consequatur ex aliquid fuga eum quidem sint
-                    consectetur velit
+                    Hubungi Kami Untuk Bertanya atau Pesan
                 </p>
             </div>
             <!-- End Section Title -->
@@ -813,9 +334,10 @@
                             <div class="col-md-6">
                                 <div class="info-item" data-aos="fade" data-aos-delay="200">
                                     <i class="bi bi-geo-alt"></i>
-                                    <h3>Address</h3>
-                                    <p>A108 Adam Street</p>
-                                    <p>New York, NY 535022</p>
+                                    <h3>Alamat</h3>
+                                    <p> Jalan Raya Desa Air Niur
+                                        No. 20</p>
+                                    <p>Bangka, Lubuk Besar</p>
                                 </div>
                             </div>
                             <!-- End Info Item -->
@@ -823,9 +345,8 @@
                             <div class="col-md-6">
                                 <div class="info-item" data-aos="fade" data-aos-delay="300">
                                     <i class="bi bi-telephone"></i>
-                                    <h3>Call Us</h3>
-                                    <p>+1 5589 55488 55</p>
-                                    <p>+1 6678 254445 41</p>
+                                    <h3>Hp / WA</h3>
+                                    <p>082181012301</p>
                                 </div>
                             </div>
                             <!-- End Info Item -->
@@ -833,9 +354,8 @@
                             <div class="col-md-6">
                                 <div class="info-item" data-aos="fade" data-aos-delay="400">
                                     <i class="bi bi-envelope"></i>
-                                    <h3>Email Us</h3>
-                                    <p>info@example.com</p>
-                                    <p>contact@example.com</p>
+                                    <h3>Email</h3>
+                                    <p>taniCitra@gmail.com</p>
                                 </div>
                             </div>
                             <!-- End Info Item -->
@@ -843,9 +363,9 @@
                             <div class="col-md-6">
                                 <div class="info-item" data-aos="fade" data-aos-delay="500">
                                     <i class="bi bi-clock"></i>
-                                    <h3>Open Hours</h3>
-                                    <p>Monday - Friday</p>
-                                    <p>9:00AM - 05:00PM</p>
+                                    <h3>Jam Operasi</h3>
+                                    <p>Setiap Hari</p>
+                                    <p>9:00 - 17:00</p>
                                 </div>
                             </div>
                             <!-- End Info Item -->
@@ -853,7 +373,10 @@
                     </div>
 
                     <div class="col-lg-6">
-
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d249.1166617472377!2d106.5213508649602!3d-2.550296562772823!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e3d58883f8846a7%3A0xa07eb5129c1c385b!2sCGXC%2BWH7%2C%20Perlang%2C%20Kec.%20Lubuk%20Besar%2C%20Kabupaten%20Bangka%20Tengah%2C%20Kepulauan%20Bangka%20Belitung%2033681!5e0!3m2!1sid!2sid!4v1698469917167!5m2!1sid!2sid"
+                            width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                     <!-- End Contact Form -->
                 </div>
@@ -864,4 +387,15 @@
 @endSection
 
 @section('script')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var splide = new Splide('.splide', {
+                type: 'fade',
+                rewind: true,
+                autoplay: true,
+            });
+
+            splide.mount();
+        });
+    </script>
 @endSection
