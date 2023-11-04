@@ -41,7 +41,7 @@ class Account extends Authenticatable
         return DB::table('accounts')
             ->join('roles', 'accounts.role_id', '=', 'roles.id')
             ->join('customers', 'accounts.id', '=', 'customers.account_id')
-            ->select('accounts.id', 'accounts.email', 'accounts.aktivasi', 'accounts.role_id', 'roles.nama as nama_role', 'customers.nama as nama_customer', 'customers.phone as phone_customer', 'customers.alamat as alamat_customer')
+            ->select('accounts.id', 'accounts.email', 'accounts.aktivasi', 'accounts.role_id', 'roles.nama as nama_role', 'customers.id as id_customer', 'customers.nama as nama_customer', 'customers.phone as phone_customer', 'customers.alamat as alamat_customer')
             ->where('accounts.id', $account_id)
             ->first();
     }

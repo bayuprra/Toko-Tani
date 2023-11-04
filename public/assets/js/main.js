@@ -111,13 +111,10 @@ document.addEventListener('DOMContentLoaded', () => {
    * Correct scrolling position upon page load for URLs containing hash links.
    */
   window.addEventListener('load', function(e) {
-    const url = window.location.href;
-    const hashIndex = url.indexOf('#');
-    if (hashIndex !== -1) {
-      const hash = url.slice(hashIndex);
-      if (document.querySelector(hash)) {
+    if (window.location.hash) {
+      if (document.querySelector(window.location.hash)) {
         setTimeout(() => {
-          let section = document.querySelector(hash);
+          let section = document.querySelector(window.location.hash);
           let scrollMarginTop = getComputedStyle(section).scrollMarginTop;
           window.scrollTo({
             top: section.offsetTop - parseInt(scrollMarginTop),
@@ -126,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 100);
       }
     }
-});
+  });
 
 
   /**

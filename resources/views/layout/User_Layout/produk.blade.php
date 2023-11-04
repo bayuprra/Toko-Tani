@@ -124,14 +124,14 @@
                         <div class="col-xl-3 col-lg-2 col-2">
                             <article>
                                 <div class="post-img">
-                                    <img src="produk/{{ $produk->gambar }}" alt="" class="img-fluid"
-                                        style="width: 100%;height:100%">
+                                    <img src="{{ asset('produk/' . $produk->gambar) }}" alt="{{ $produk->gambar }}"
+                                        class="img-fluid" style="width: 100%;height:100%">
                                 </div>
 
                                 <p class="post-category">{{ $produk->kategori }}</p>
 
                                 <h2 class="title">
-                                    <a href="/{{ $produk->kategori }}/{{ $produk->merk }}">{{ $produk->merk }}</a>
+                                    <a href="/user/{{ $produk->kategori }}/{{ $produk->merk }}">{{ $produk->merk }}</a>
                                 </h2>
 
                                 <div class="d-flex align-items-center">

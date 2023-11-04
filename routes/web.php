@@ -16,46 +16,53 @@ use App\Http\Controllers\UserController;
 |
 */
 
-
-Route::controller(UserController::class)->group(function () {
-    Route::get('/', 'index');
-    Route::get('/{kategori}', 'kategori');
-    Route::get('/{kategori}/{produk}', 'produk');
+Route::controller(AuthController::class)->group(function () {
+    Route::get('/login', 'login')->name('login')->middleware('guest');
+    Route::post('/login', 'authentikasi');
+    Route::post('/logout', 'logout')->middleware('auth');
+    Route::get('/register', 'register')->middleware('guest')->name('register');
+    Route::post('/register', 'store');
 });
+// Route::get('/', [AuthController::class, 'login'])->name('login');
+
+
 
 Route::controller(AdminController::class)->middleware('auth')->group(function () {
-    Route::get('/dashboard', 'dashboard');
+    Route::get('/dashboard', 'dashboard')->name('dashboard');
 
     // customer
-    Route::get('/customer', 'dataCustomer');
+    Route::get('/customer', 'dataCustomer')->name('dataCustomer');
     Route::post('/customer', 'storeProduk');
     Route::post('/updateCustomer/{id}', 'updateCustomer');
     Route::delete('/deleteCustomer/{id}', 'deleteCustomer')->name('deleteCustomer');
 
     // produk
-    Route::get('/produk', 'dataProduk');
+    Route::get('/produk', 'dataProduk')->name('dataProduk');
     Route::post('/produk', 'storeProduk');
     Route::post('/updateProduk/{id}', 'updateProduk');
     Route::delete('/deleteProduk/{id}', 'deleteProduk')->name('deleteProduk');
 
     // kategori
-    Route::get('/kategori', 'kategoriProduk');
+    Route::get('/kategori', 'kategoriProduk')->name('dataKategori');
     Route::post('/kategori', 'storeKategori');
     Route::post('/updateKategori/{id}', 'updateKategori');
     Route::delete('/deleteKategori/{id}', 'deleteKategori')->name('deleteKategori');
 
     // merk
-    Route::get('/merk', 'merkProduk');
+    Route::get('/merk', 'merkProduk')->name('dataMerk');
     Route::post('/merk', 'storeMerk');
     Route::post('/updateMerk/{id}', 'updateMerk');
     Route::delete('/deleteMerk/{id}', 'deleteMerk')->name('deleteMerk');
 });
 
-Route::get('/login', [AuthController::class, 'login'])->name('login')->middleware('guest');
-Route::post('/login', [AuthController::class, 'authentikasi']);
 
-Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth');
+Route::controller(UserController::class)->group(function () {
+    Route::get('/', 'index');
+    Route::get('user/{kategori}', 'kategori');
+    Route::get('user/{kategori}/{produk}', 'produk');
 
-
-Route::get('/register', [AuthController::class, 'register'])->middleware('guest');
-Route::post('/register', [AuthController::class, 'store'])->middleware('auth');
+    Route::get('user/produk/varian/data', 'getVarian')->name('getstok');
+    Route::get('user/produk/varian/checkout', 'checkout')->name('copage');
+    Route::get('profil', 'profil')->name('profil');
+    Route::post('profil', 'editProfil');
+});

@@ -38,4 +38,12 @@ class Produk extends Model
             ->select('produk.merk_produk_id', 'produk.kategori_produk_id', 'produk.nama', 'produk.satuan', 'produk.harga', 'produk.qty', 'produk.gambar', 'kategori_produk.nama as kategori', 'merk_produk.nama as merk')
             ->groupBy('merk_produk_id');
     }
+
+    public function produkByKategoriMerkId($idKategori, $idMerk)
+    {
+        return DB::table($this->table)
+            ->where('kategori_produk_id', $idKategori)
+            ->where('merk_produk_id', $idMerk)
+            ->get();
+    }
 }

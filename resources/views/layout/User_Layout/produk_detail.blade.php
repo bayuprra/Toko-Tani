@@ -15,7 +15,7 @@
         }
 
         main {
-            padding-top: 64px;
+            padding-top: 90px;
         }
 
         .header .logo h1,
@@ -199,7 +199,7 @@
             margin-top: 20px;
         }
 
-        .button-sidebar button:nth-child(1) {
+        .button-sidebar form button {
             background-color: var(--NN0, #FFFFFF);
             border: 1px solid var(--color);
             border-radius: 8px;
@@ -220,7 +220,7 @@
             margin: 8px 0px;
         }
 
-        .button-sidebar button:nth-child(2) {
+        .button-sidebar button {
             background-color: var(--color);
             border: none;
             border-radius: 8px;
@@ -300,6 +300,15 @@
         .stars .yes {
             color: var(--color);
         }
+
+        .nav-pills .nav-link.active {
+            background: var(--color);
+
+        }
+
+        .blog-details .content blockquote {
+            padding: 10px;
+        }
     </style>
 @endSection
 
@@ -308,21 +317,12 @@
 
         <!-- Blog Page Title & Breadcrumbs -->
         <div data-aos="fade" class="page-title">
-            <div class="heading">
-                <div class="container">
-                    <div class="row d-flex justify-content-center text-center">
-                        <div class="col-lg-8">
-                            <h1>d</h1>
-                            <p class="mb-0"> </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <nav class="breadcrumbs">
                 <div class="container">
                     <ol>
-                        <li><a href="/#services">{{ $title }}</a></li>
-                        <li class="current"></li>
+                        <li><a href="/#produk">{{ $title }}</a></li>
+                        <li><a href="/user/{{ $dataKategori['nama'] }}">{{ $dataKategori['nama'] }}</a></li>
+                        <li class="current">{{ $dataProduk['nama'] }}</li>
                     </ol>
                 </div>
             </nav>
@@ -337,13 +337,11 @@
                             <section id="image-carousel" class="splide" aria-label="Beautiful Images">
                                 <div class="splide__track">
                                     <ul class="splide__list">
-                                        <li class="splide__slide">
-                                            <img src="{{ asset('assets/img/slider/bibit.jpg') }}" alt="">
-                                        </li>
-
-                                        <li class="splide__slide">
-                                            <img src="{{ asset('assets/img/slider/bibit2.jpg') }}" alt="">
-                                        </li>
+                                        @foreach ($produk as $prod)
+                                            <li class="splide__slide">
+                                                <img src="{{ asset('produk/' . $prod->gambar) }}" alt="">
+                                            </li>
+                                        @endforeach
                                     </ul>
                                 </div>
                             </section>
@@ -351,45 +349,60 @@
                     </div>
                     <div class="col-lg-5 forProduk">
                         <article class="article">
-                            <h5 class="namaProduk">Dolorum optio tempore voluptas dignissimos cumque fuga qui quibusdam quia
+                            <h5 class="namaProduk">{{ $dataProduk['nama'] }}
                             </h5>
                             <hr>
                             <div class="varian">
                                 <p>Pilih Varian</p>
                                 <div class="varian-button">
-                                    <button>2Liter</button>
-                                    <button>1Liter</button>
+                                    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                                        @php
+                                            $i = 1;
+                                            $stat = '';
+                                        @endphp
+                                        @foreach ($produk as $prod)
+                                            @if ($i == 1)
+                                                @php $stat = "active" @endphp
+                                            @else
+                                                @php $stat = " " @endphp
+                                            @endif
+                                            <button class="nav-link {{ $stat }}" data-bs-toggle="pill"
+                                                data-bs-target=".pills-varian-{{ $prod->id }}" type="button"
+                                                role="tab" aria-controls="pills-home" aria-selected="true"
+                                                onclick="subTotal({{ $prod->id }})"
+                                                id="produk{{ $prod->id }}">{{ $prod->nama . $prod->satuan }}</button>
+                                            @php $i++ @endphp
+                                        @endforeach
+                                    </ul>
+
                                 </div>
                             </div>
                             <div class="content">
                                 <blockquote>
-                                    <p>
-                                        Rp. 50.000
-                                    </p>
+                                    <div class="tab-content">
+                                        @php
+                                            $i = 1;
+                                            $stat = '';
+                                        @endphp
+                                        @foreach ($produk as $prod)
+                                            @if ($i == 1)
+                                                @php $stat = "show active" @endphp
+                                            @else
+                                                @php $stat = " " @endphp
+                                            @endif
+                                            <div class="tab-pane fade {{ $stat }} pills-varian-{{ $prod->id }}"
+                                                role="tabpanel" aria-labelledby="pills-home-tab"><b>Rp.
+                                                    {{ $prod->harga }}</b></div>
+                                            @php $i++ @endphp
+                                        @endforeach
+                                    </div>
                                 </blockquote>
                                 <h3>Detail</h3>
                                 <p>
-                                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rerum earum possimus molestias
-                                    consectetur placeat ea corporis aspernatur suscipit officia, vitae assumenda natus alias
-                                    inventore illo repellat vel esse reiciendis officiis?
+                                    {{ $dataProduk->deskripsi }}
                                 </p>
 
                             </div><!-- End post content -->
-
-                            <div class="meta-bottom">
-                                {{-- <i class="bi bi-folder"></i>
-                                <ul class="cats">
-                                    <li><a href="#">Business</a></li>
-                                </ul>
-
-                                <i class="bi bi-tags"></i>
-                                <ul class="tags">
-                                    <li><a href="#">Creative</a></li>
-                                    <li><a href="#">Tips</a></li>
-                                    <li><a href="#">Marketing</a></li>
-                                </ul> --}}
-                            </div><!-- End meta bottom -->
-
                         </article><!-- End post article -->
 
 
@@ -427,21 +440,37 @@
                             <div class="icon-box">
                                 <h6>Beli atau Keranjang</h6>
                                 <div class="stok">
-                                    <button><i class="bi bi-dash"></i></button>
-                                    <input type="number" name="" id="" value="1" style="width: 50%">
-                                    <button><i class="bi bi-plus"></i></button>
+                                    <button id="minus"><i class="bi bi-dash"></i></button>
+                                    <input type="number" name="" id="jml" value="1" style="width: 50%">
+                                    <button id="plus"><i class="bi bi-plus"></i></button>
                                 </div>
-                                <p>Stok :</p>
+                                <p>Stok :
+                                    @php
+                                        $i = 1;
+                                        $stat = '';
+                                    @endphp
+                                    @foreach ($produk as $prod)
+                                        @if ($i == 1)
+                                            @php $stat = "inline" @endphp
+                                        @else
+                                            @php $stat = "none" @endphp
+                                        @endif
+                                        <b class="stok-{{ $prod->id }}" style="display: {{ $stat }}">
+                                            {{ $prod->qty }}
+                                        </b>
+                                        @php $i++ @endphp
+                                    @endforeach
+                                </p>
                             </div>
-                            <div class="icon-box">
+                            {{-- <div class="icon-box">
                                 <div class="subtotal">
                                     <p>SubTotal</p>
-                                    <p>120.000</p>
+                                    <p id="tot">{{ $produk[0]->harga }}</p>
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="icon-box">
                                 <div class="button-sidebar">
-                                    <button>Beli</button>
+                                    <a href="{{ route('copage') }}"><button>Beli</button></a>
                                     <button>Keranjang</button>
                                 </div>
                             </div>
@@ -472,6 +501,65 @@
             splide.mount();
 
 
+        });
+        var productData = @json($produk);
+
+        function subTotal(id) {
+            var index = productData.findIndex(function(element) {
+                return element.id === id;
+            });
+            $('[class^="stok-"]').hide();
+            $('.stok-' + id).show();
+
+
+
+        }
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var productData = @json($produk);
+
+            function dataProduk() {
+                $.get('/user/produk/varian/data', function(data) {
+                    return data;
+                });
+            }
+
+
+
+
+            const butPlus = $('#plus');
+            const butMinus = $('#minus');
+            const jmlInput = $('#jml');
+            const visibleElements = $('[class^="stok-"]:not(:hidden)');
+
+
+            butPlus.on('click', function() {
+                let jumlah = parseInt(jmlInput.val());
+                let matchFound = false;
+                for (let i = 0; i < visibleElements.length; i++) {
+                    console.log($(visibleElements[i]));
+                }
+
+                if (matchFound) {
+                    butPlus.prop("disabled", true); // Disable plus button
+                } else {
+                    jumlah += 1;
+                    jmlInput.val(jumlah);
+                    butMinus.prop("disabled", false);
+                }
+            });
+
+            butMinus.on('click', function() {
+                let jumlah = parseInt(jmlInput.val());
+                if (jumlah > 1) {
+                    jumlah -= 1;
+                    jmlInput.val(jumlah); // Update the input value
+                }
+                if (jumlah === 1) {
+                    butMinus.prop("disabled", true); // Disable the minus button when the value is 1
+                }
+            });
         });
     </script>
 @endSection

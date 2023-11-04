@@ -8,7 +8,7 @@
     <title>Home - TaniCitra</title>
     <meta content="" name="description" />
     <meta content="" name="keywords" />
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Favicons -->
     <link href="{{ asset('logo.png') }}" rel="icon" />
     <link href="{{ asset('favicon.png') }}" rel="apple-touch-icon" />
@@ -29,6 +29,10 @@
     <link href="{{ asset('assets/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/vendor/aos/aos.css') }}" rel="stylesheet" />
 
+    <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/select2/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
     <!-- Template Main CSS File -->
     <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/css/additional.css') }}" rel="stylesheet" />
@@ -50,6 +54,8 @@
     <script src="{{ asset('assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/aos/aos.js') }}"></script>
     <script src="{{ asset('assets/vendor/php-email-form/validate.js') }}"></script>
+    <script src="{{ asset('AdminLTE/plugins/select2/js/select2.full.min.js') }}"></script>
+    <script src="{{ asset('AdminLTE/plugins/select2/js/select2.full.min.js') }}"></script>
 
     <!-- Template Main JS File -->
     <script src="{{ asset('assets/js/main.js') }}"></script>
@@ -64,6 +70,22 @@
             }
             $("#navmenu ul").show();
             return $(".searchBox").hide();
+        }
+        $('.select2').select2();
+
+        function logout() {
+            Swal.fire({
+                title: 'Apakah Kamu Yakin?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Logout!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById("formLogout").submit();
+                }
+            })
         }
     </script>
     @yield('script')

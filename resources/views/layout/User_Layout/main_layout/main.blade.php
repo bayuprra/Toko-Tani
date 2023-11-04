@@ -137,7 +137,7 @@
                                 </div>
                                 <div>
                                     <h4 class="title">
-                                        <a href="/{{ $kat->nama }}" class="stretched-link">{{ $kat->nama }}</a>
+                                        <a href="user/{{ $kat->nama }}" class="stretched-link">{{ $kat->nama }}</a>
                                     </h4>
                                     <p class="description">
                                         {{ $kat->deskripsi }}
