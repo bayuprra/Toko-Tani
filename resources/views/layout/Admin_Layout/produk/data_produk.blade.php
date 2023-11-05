@@ -67,7 +67,7 @@
                                             <td> {{ $produk->qty }}</td>
                                             <td style="width: 10%; max-height:5rem"><img
                                                     src="{{ asset('produk/' . $produk->gambar) }}"
-                                                    alt="{{ $produk->gambar }}" style="width:100%;height:100%">
+                                                    alt="{{ $produk->gambar }}" style="width:100%;height:5rem">
                                             </td>
                                             <td class="d-flex flex-row" style="gap: 10px">
                                                 <button type="button" class="btn btn-warning btn-xs" style="width: 50%"
@@ -111,7 +111,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="/produk" method="POST" enctype="multipart/form-data">
+                    <form action="/produkss" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <div class="col-sm-12">

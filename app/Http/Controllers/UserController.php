@@ -73,6 +73,12 @@ class UserController extends Controller
     {
         $id = session()->get('data')->id_customer;
         $dat = $this->customerModel->profil($id);
+
+        $kab = "";
+        $kec = "";
+        $det = "";
+        if($dat->alamat != ""){
+
         $alamat = explode(',', $dat->alamat);
         $kab = str_replace(' Kabupaten ', '', $alamat[count($alamat) - 2]);
         $kec = str_replace(' Kecamatan ', '', $alamat[count($alamat) - 3]);
@@ -80,6 +86,8 @@ class UserController extends Controller
         for ($i = 0; $i < count($alamat) - 3; $i++) {
             $det .= $alamat[$i];
         }
+    }
+
         $dat->kab = $kab;
         $dat->kec = $kec;
         $dat->det = $det;

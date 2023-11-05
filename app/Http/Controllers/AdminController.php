@@ -28,7 +28,7 @@ class AdminController extends Controller
         return view('layout/Admin_Layout/customer/data_customer', [
             'title'     => "Data Customer",
             'folder'    => "Customer",
-            'data'      => $this->customerModel->get()
+            'data'      => $this->customerModel->get()??""
         ]);
     }
 
@@ -74,7 +74,7 @@ class AdminController extends Controller
         $data = array(
             'title'     => "Data Produk",
             'folder'    => "Produk",
-            'data'      => $this->produkModel->getAllData(),
+            'data'      => $this->produkModel->getAllData() ??"",
             'kategori'  => $this->kategoriModel->get(),
             'merk'      => $this->merkModel->get()
         );

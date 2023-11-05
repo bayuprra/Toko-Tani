@@ -37,8 +37,8 @@ Route::controller(AdminController::class)->middleware('auth')->group(function ()
     Route::delete('/deleteCustomer/{id}', 'deleteCustomer')->name('deleteCustomer');
 
     // produk
-    Route::get('/produk', 'dataProduk')->name('dataProduk');
-    Route::post('/produk', 'storeProduk');
+    Route::get('/produkss', 'dataProduk')->name('dataProdukAdmin');
+    Route::post('/produkss', 'storeProduk');
     Route::post('/updateProduk/{id}', 'updateProduk');
     Route::delete('/deleteProduk/{id}', 'deleteProduk')->name('deleteProduk');
 

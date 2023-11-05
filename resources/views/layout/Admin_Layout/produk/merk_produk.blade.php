@@ -55,10 +55,10 @@
                 @foreach($data as $merk)
                 <tr>
                   <div class="row">
-                    <td class="col-1">{{ $num++ }}</td>
-                    <td class="col-3"> {{  Str::upper($merk->nama) }}</td>
+                    <td class="col-1" style="width: 5%">{{ $num++ }}</td>
+                    <td class="col-3" style="width: 20%"> {{  Str::upper($merk->nama) }}</td>
                     <td class="col-6 deskripsi"> {{ $merk->deskripsi != " "? $merk->deskripsi :"Belum Ada Deskripsi" }}</td>
-                    <td class="d-flex flex-row" style="gap: 10px">
+                    <td class="d-flex flex-row" style="gap: 10px;">
                       <button type="button" class="btn btn-warning btn-xs" style="width: 50%" data-toggle="modal" data-target="#modal-update-{{ $merk->id }} "><i class="fas fa-edit"></i></button>
                       <button type="button" class="btn  btn-danger btn-xs" style="margin-top: 0;width: 50%" id="deleteButton" onclick="hapusMerk({{ $merk->id }});"><i class="fas fa-solid fa-trash"></i></button>
                       <form action="{{ route('deleteMerk', ['id' => $merk->id]) }}" method="post" id="formHapusMerk{{ $merk->id }}">
