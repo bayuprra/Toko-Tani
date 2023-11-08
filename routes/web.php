@@ -62,7 +62,7 @@ Route::controller(UserController::class)->group(function () {
     Route::get('user/{kategori}/{produk}', 'produk');
 
     Route::get('user/produk/varian/data', 'getVarian')->name('getstok');
-    Route::get('user/produk/varian/checkout', 'checkout')->name('copage');
+    Route::get('user/produk/varian/checkout', 'checkout')->name('copage')->middleware('loginUser');
     Route::get('profil', 'profil')->name('profil');
     Route::post('profil', 'editProfil');
 });

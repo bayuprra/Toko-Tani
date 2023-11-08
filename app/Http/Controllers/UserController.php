@@ -51,13 +51,15 @@ class UserController extends Controller
 
         return view('layout/User_Layout/produk_detail', $data);
     }
-    public function checkout()
+    public function checkout(Request $request)
     {
+        $produkId = $request->query('produkId');
         $data = array(
             'title'         => "Produk",
             'kategori'      => $this->kategoriModel->get(),
+            'produk'        => $this->produkModel->getDataById($produkId),
+            'data'        => session()->get('data')
         );
-
         return view('layout/User_Layout/checkout', $data);
     }
 
@@ -77,16 +79,16 @@ class UserController extends Controller
         $kab = "";
         $kec = "";
         $det = "";
-        if($dat->alamat != ""){
+        if ($dat->alamat != "") {
 
-        $alamat = explode(',', $dat->alamat);
-        $kab = str_replace(' Kabupaten ', '', $alamat[count($alamat) - 2]);
-        $kec = str_replace(' Kecamatan ', '', $alamat[count($alamat) - 3]);
-        $det = "";
-        for ($i = 0; $i < count($alamat) - 3; $i++) {
-            $det .= $alamat[$i];
+            $alamat = explode(',', $dat->alamat);
+            $kab = str_replace(' Kabupaten ', '', $alamat[count($alamat) - 2]);
+            $kec = str_replace(' Kecamatan ', '', $alamat[count($alamat) - 3]);
+            $det = "";
+            for ($i = 0; $i < count($alamat) - 3; $i++) {
+                $det .= $alamat[$i];
+            }
         }
-    }
 
         $dat->kab = $kab;
         $dat->kec = $kec;

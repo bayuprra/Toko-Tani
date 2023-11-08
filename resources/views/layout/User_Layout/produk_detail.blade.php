@@ -439,11 +439,11 @@
                         <div class="sidebar forCart">
                             <div class="icon-box">
                                 <h6>Beli atau Keranjang</h6>
-                                <div class="stok">
+                                {{-- <div class="stok">
                                     <button id="minus"><i class="bi bi-dash"></i></button>
                                     <input type="number" name="" id="jml" value="1" style="width: 50%">
                                     <button id="plus"><i class="bi bi-plus"></i></button>
-                                </div>
+                                </div> --}}
                                 <p>Stok :
                                     @php
                                         $i = 1;
@@ -470,7 +470,9 @@
                             </div> --}}
                             <div class="icon-box">
                                 <div class="button-sidebar">
-                                    <a href="{{ route('copage') }}"><button>Beli</button></a>
+                                    {{-- <a href="{{ route('copage') }}"> --}}
+                                    <button id="butBuy" data-produkid="{{ $produk[0]->id }}">Beli</button>
+                                    {{-- </a> --}}
                                     <button>Keranjang</button>
                                 </div>
                             </div>
@@ -508,12 +510,16 @@
             var index = productData.findIndex(function(element) {
                 return element.id === id;
             });
+            $("#butBuy").data("produkid", id);
             $('[class^="stok-"]').hide();
             $('.stok-' + id).show();
-
-
-
         }
+
+        $("#butBuy").click(function() {
+            var produkId = $(this).data("produkid");
+            var url = "{{ route('copage') }}?produkId=" + produkId;
+            window.location.href = url;
+        })
     </script>
     <script type="text/javascript">
         $(document).ready(function() {

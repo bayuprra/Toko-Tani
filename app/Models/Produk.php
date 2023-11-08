@@ -29,6 +29,15 @@ class Produk extends Model
             ->select('produk.*', 'kategori_produk.nama as kategori', 'merk_produk.nama as merk')
             ->get();
     }
+    public function getDataById($id)
+    {
+        return DB::table('produk')
+            ->join('merk_produk', 'produk.merk_produk_id', '=', 'merk_produk.id')
+            ->join('kategori_produk', 'produk.kategori_produk_id', '=', 'kategori_produk.id')
+            ->where('produk.id', $id)
+            ->select('produk.*', 'kategori_produk.nama as kategori', 'merk_produk.nama as merk')
+            ->first();
+    }
 
     public function produkByKategori($idKategori)
     {

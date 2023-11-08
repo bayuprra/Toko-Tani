@@ -12,6 +12,8 @@ class AuthController extends Controller
 {
     public function login()
     {
+        session(['url.intended' => url()->previous()]);
+
         return view('layout/login');
     }
     public function register()
@@ -50,6 +52,7 @@ class AuthController extends Controller
 
     public function authentikasi(Request $request)
     {
+
         $cred = $request->validate([
             'email'     => 'required|email:dns',
             'password'  => 'required'
@@ -64,7 +67,10 @@ class AuthController extends Controller
                 $request->session()->put('data', $dataAkun);
                 $request->session()->regenerate();
                 if ($user->role_id != 1) {
-                    return redirect()->intended('/');
+                    if (!session()->get('onBuy')) {
+                        return redirect()->intended('/');
+                    }
+                    return redirect()->to(session()->get('url.intended'));
                 }
                 return redirect()->intended('/dashboard');
             }
@@ -78,6 +84,6 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         $request->session()->flash('success', 'Anda Telah Logout');
-        return redirect('/login');
+        return redirect('/');
     }
 }

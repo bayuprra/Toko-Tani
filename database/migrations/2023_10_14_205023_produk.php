@@ -35,6 +35,6 @@ class Produk extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('produk');
     }
 }
