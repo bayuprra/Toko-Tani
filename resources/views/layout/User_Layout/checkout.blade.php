@@ -648,9 +648,10 @@
                                                                             <div class="stok">
                                                                                 <button id="minus"><i
                                                                                         class="bi bi-dash"></i></button>
-                                                                                <input type="number" name=""
+                                                                                <input type="number" name="jumlah"
                                                                                     id="jml" value="1"
                                                                                     style="width: 50%"
+                                                                                    data-max="{{ $produk->qty }}"
                                                                                     max="{{ $produk->qty }}">
                                                                                 <button id="plus"><i
                                                                                         class="bi bi-plus"></i></button>
@@ -754,8 +755,7 @@
                                 <div class="button-sidebar">
                                     {{-- <a href="{{ route('copage') }}"> --}}
                                     {{-- </a> --}}
-                                    <button>Order</button>
-                                    <button>Bayar Sekarang</button>
+                                    <button id="orderNow">Order</button>
                                 </div>
                             </div>
 
@@ -772,6 +772,12 @@
 
 
     </main>
+    <form action="{{ route('buatOrder') }}" method="post" id="formCO">
+        @csrf
+        <input type="hidden" name="idBarang" value="{{ $produk->id }}">
+        <input type="hidden" name="jumlahBarang" value="1">
+        <input type="hidden" name="totalHargaBarang">
+    </form>
 @endSection
 
 @section('script')
@@ -817,6 +823,8 @@
                 var subtotalVal = parseInt(harga) * parseInt(jml);
                 var final = subtotalVal + valOngkir;
 
+                $('input[name="totalHargaBarang"]').val(final);
+
                 valOngkir = new Intl.NumberFormat('id-ID', {
                     style: 'currency',
                     currency: 'IDR',
@@ -842,17 +850,21 @@
                 totalKeseluruhan.text(final);
             }
 
-
-
-
-
             butPlus.on('click', function() {
                 let jumlah = parseInt(jmlInput.val());
+                let max = parseInt(jmlInput.data("max"));
 
-                jumlah += 1;
-                jmlInput.val(jumlah);
-                subTotal();
-                butMinus.prop("disabled", false);
+                if (jumlah === max) {
+                    butPlus.prop("disabled", true);
+                } else {
+                    jumlah += 1;
+                    jmlInput.val(jumlah);
+                    $('input[name="jumlahBarang"]').val(jumlah);
+                    subTotal();
+                    butMinus.prop("disabled", false);
+                    butPlus.prop("disabled", false);
+                }
+
             });
             butMinus.on('click', function() {
                 let jumlah = parseInt(jmlInput.val());
@@ -860,13 +872,19 @@
                 if (jumlah > 1) {
                     jumlah -= 1;
                     jmlInput.val(jumlah); // Update the input value
+                    $('input[name="jumlahBarang"]').val(jumlah);
                     subTotal();
 
                 }
                 if (jumlah === 1) {
                     butMinus.prop("disabled", true); // Disable the minus button when the value is 1
+                    butPlus.prop("disabled", false); // Disable the minus button when the value is 1
                 }
             });
+
+            $("#orderNow").click(function() {
+                $("#formCO").submit();
+            })
         });
     </script>
 @endSection

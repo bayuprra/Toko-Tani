@@ -164,8 +164,8 @@
                             <div class="col-6 row">
                                 <div class="col-2" id="riwayatView">
                                     <div class="sign-up-form d-flex" data-aos="fade-up" data-aos-delay="300">
-                                        <a href="#" id="riwayat"><input type="button" class="btn profil-btn"
-                                                value="Riwayat" /></a>
+                                        <a href="{{ route('riwayat') }}" id="riwayat"><input type="button"
+                                                class="btn profil-btn" value="Riwayat" /></a>
                                     </div>
                                 </div>
                                 <div class="col-2" id="editProfilView">

@@ -10,6 +10,7 @@ use App\Models\Customer;
 use App\Models\Account;
 use App\Models\Merk;
 use App\Models\Kategori;
+use App\Models\Order;
 use App\Models\Produk;
 
 class Controller extends BaseController
@@ -20,7 +21,8 @@ class Controller extends BaseController
         $customerModel,
         $merkModel,
         $kategoriModel,
-        $produkModel;
+        $produkModel,
+        $orderModel;
 
     public function __construct()
     {
@@ -29,5 +31,6 @@ class Controller extends BaseController
         $this->merkModel = new Merk();
         $this->kategoriModel = new Kategori();
         $this->produkModel = new Produk();
+        $this->orderModel = new Order();
     }
 }

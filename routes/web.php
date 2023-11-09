@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -65,4 +66,9 @@ Route::controller(UserController::class)->group(function () {
     Route::get('user/produk/varian/checkout', 'checkout')->name('copage')->middleware('loginUser');
     Route::get('profil', 'profil')->name('profil');
     Route::post('profil', 'editProfil');
+});
+
+Route::controller(OrderController::class)->group(function () {
+    Route::post('co/buynow', 'store')->name('buatOrder')->middleware('loginUser');
+    Route::get('riwayat', 'riwayat')->name('riwayat')->middleware('loginUser');
 });
