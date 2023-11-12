@@ -12,7 +12,7 @@ class AuthController extends Controller
 {
     public function login()
     {
-        session(['url.intended' => url()->previous()]);
+        // session(['url.intended' => url()->previous()]);
 
         return view('layout/login');
     }
@@ -70,7 +70,8 @@ class AuthController extends Controller
                     if (!session()->get('onBuy')) {
                         return redirect()->intended('/');
                     }
-                    return redirect()->to(session()->get('url.intended'));
+                    // return redirect()->to(session()->get('url.intended'));
+                    return redirect()->intended('/');
                 }
                 return redirect()->intended('/dashboard');
             }

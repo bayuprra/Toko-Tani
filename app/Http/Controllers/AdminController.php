@@ -28,7 +28,7 @@ class AdminController extends Controller
         return view('layout/Admin_Layout/customer/data_customer', [
             'title'     => "Data Customer",
             'folder'    => "Customer",
-            'data'      => $this->customerModel->get()??""
+            'data'      => $this->customerModel->get() ?? ""
         ]);
     }
 
@@ -74,7 +74,7 @@ class AdminController extends Controller
         $data = array(
             'title'     => "Data Produk",
             'folder'    => "Produk",
-            'data'      => $this->produkModel->getAllData() ??"",
+            'data'      => $this->produkModel->getAllData() ?? "",
             'kategori'  => $this->kategoriModel->get(),
             'merk'      => $this->merkModel->get()
         );
@@ -276,5 +276,64 @@ class AdminController extends Controller
             $randomString .= $characters[rand(0, $charactersLength - 1)];
         }
         return $randomString;
+    }
+
+
+    // Order
+    function dataOrder()
+    {
+        $data = array(
+            'title'     => "Data Order",
+            'folder'    => "Order",
+            'data'      => $this->orderModel->getAllOrder(),
+            'pembayaran' => $this->pembayaranModel->get()
+        );
+        dump($data);
+        return view('layout/Admin_Layout/order/data_order', $data);
+    }
+    function dataPembayaran()
+    {
+        $data = array(
+            'title'     => "Data Pembayaran",
+            'folder'    => "Order",
+            'data'      => $this->pembayaranModel->getAllOrder(),
+        );
+        dump($data);
+        return view('layout/Admin_Layout/order/data_transaksi', $data);
+    }
+
+    public function verifikasiPembayaran(Request $request)
+    {
+        $data = $request->all();
+        $pembayaran = $this->pembayaranModel->find($data['pembayaran_id']);
+
+        if ($data['stat'] == 1) {
+            $updateData = $pembayaran->update([
+                'status' => 1,
+            ]);
+
+            $order = $this->orderModel->find($data['order_id']);
+            $updateOrder = $order->update([
+                'status_order_id' => 3,
+            ]);
+            if ($updateData && $updateOrder) {
+
+                return redirect()->back()->with('success', 'Pembayaran Berhasil Diverifikasi');
+            }
+            return redirect()->back()->with('error', 'Pembayaran Gagal Diverifikasi');
+        }
+
+        $path = public_path('pembayaran/' . $pembayaran['bukti']);
+        if (File::exists($path)) {
+            File::delete($path);
+        }
+        $updateData = $pembayaran->update([
+            'bukti'     => "0",
+        ]);
+        if ($updateData) {
+
+            return redirect()->back()->with('success', 'Pembayaran Berhasil Ditolak');
+        }
+        return redirect()->back()->with('error', 'Pembayaran Gagal Ditolak');
     }
 }

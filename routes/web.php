@@ -54,6 +54,11 @@ Route::controller(AdminController::class)->middleware('auth')->group(function ()
     Route::post('/merk', 'storeMerk');
     Route::post('/updateMerk/{id}', 'updateMerk');
     Route::delete('/deleteMerk/{id}', 'deleteMerk')->name('deleteMerk');
+
+    //order
+    Route::get('/admin/order', 'dataOrder')->name('dataOrder');
+    Route::get('/admin/transaksi', 'dataPembayaran')->name('dataPembayaran');
+    Route::post('/admin/verifikasiPembayaran', 'verifikasiPembayaran')->name('verifikasiPembayaran');
 });
 
 
@@ -71,4 +76,5 @@ Route::controller(UserController::class)->group(function () {
 Route::controller(OrderController::class)->group(function () {
     Route::post('co/buynow', 'store')->name('buatOrder')->middleware('loginUser');
     Route::get('riwayat', 'riwayat')->name('riwayat')->middleware('loginUser');
+    Route::post('uploadPembayaran', 'uploadPembayaran')->name('uploadPembayaran')->middleware('loginUser');
 });

@@ -17,10 +17,11 @@ class Order extends Migration
             $table->id();
             $table->foreignId('produk_id')
                 ->constrained('produk');
+            $table->foreignId('status_order_id')
+                ->constrained('status_order');
             $table->foreignId('customer_id')
-                ->constrained('customer');
+                ->constrained('customers');
             $table->integer('jumlah');
-            $table->string('status');
             $table->string('pembayaran');
             $table->integer('total_harga');
             $table->timestamps();

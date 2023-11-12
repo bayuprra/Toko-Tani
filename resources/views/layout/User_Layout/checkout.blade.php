@@ -561,6 +561,10 @@
             text-decoration: initial;
             margin: 0px;
         }
+
+        .sidebar {
+            height: auto;
+        }
     </style>
 @endSection
 

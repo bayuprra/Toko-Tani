@@ -51,6 +51,11 @@
                     <button type="submit" hidden>Logout</button>
                 </form>
             @endif
+            @if ($role == 'Admin')
+                <a href="#" class="btn but-login" onclick="logout()" style="margin-right: 10px;">
+                    <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                </a>
+            @endif
             @if ($role == '')
                 <a class="btn but-login" href="{{ route('login') }}" style="margin-right: 10px;">Login</a>
                 <!-- <a class="btn but-logout" href="#" style="margin-right: 10px;">Logout</a> -->
