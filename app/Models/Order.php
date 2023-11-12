@@ -26,6 +26,8 @@ class Order extends Model
         return DB::table('order')
             ->join('produk', 'produk.id', '=', 'order.produk_id')
             ->leftJoin('pembayaran', 'order.id', '=', 'pembayaran.order_id')
+            ->leftJoin('pengiriman', 'order.id', '=', 'pengiriman.order_id')
+            ->leftJoin('review', 'order.id', '=', 'review.order_id')
             ->join('kategori_produk', 'produk.kategori_produk_id', '=', 'kategori_produk.id')
             ->join('merk_produk', 'merk_produk.id', '=', 'produk.merk_produk_id')
             ->join('customers', 'customers.id', '=', 'order.customer_id')
@@ -47,7 +49,14 @@ class Order extends Model
                 'customers.alamat as customerAlamat',
                 'pembayaran.id as pembayaranId',
                 'pembayaran.bukti as pembayaranBukti',
-                'pembayaran.created_at as pembayaranTgl'
+                'pembayaran.created_at as pembayaranTgl',
+                'pengiriman.id as pengirimanId',
+                'pengiriman.kurir as pengirimanKurir',
+                'pengiriman.no_resi as pengirimanResi',
+                'review.id as reviewId',
+                'review.star as reviewStar',
+                'review.status as reviewStatus',
+                'review.review as reviewReview'
             )->where('order.customer_id', $id)
             ->get();
     }
@@ -57,6 +66,7 @@ class Order extends Model
         return DB::table('order')
             ->join('produk', 'produk.id', '=', 'order.produk_id')
             ->leftJoin('pembayaran', 'order.id', '=', 'pembayaran.order_id')
+            ->leftJoin('pengiriman', 'order.id', '=', 'pengiriman.order_id')
             ->join('kategori_produk', 'produk.kategori_produk_id', '=', 'kategori_produk.id')
             ->join('merk_produk', 'merk_produk.id', '=', 'produk.merk_produk_id')
             ->join('customers', 'customers.id', '=', 'order.customer_id')
@@ -78,7 +88,10 @@ class Order extends Model
                 'customers.alamat as customerAlamat',
                 'pembayaran.id as pembayaranId',
                 'pembayaran.bukti as pembayaranBukti',
-                'pembayaran.created_at as pembayaranTgl'
+                'pembayaran.created_at as pembayaranTgl',
+                'pengiriman.id as pengirimanId',
+                'pengiriman.kurir as pengirimanKurir',
+                'pengiriman.no_resi as pengirimanResi',
             )
             ->orderBy('order.created_at', 'DESC')
             ->get();

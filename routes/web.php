@@ -58,7 +58,9 @@ Route::controller(AdminController::class)->middleware('auth')->group(function ()
     //order
     Route::get('/admin/order', 'dataOrder')->name('dataOrder');
     Route::get('/admin/transaksi', 'dataPembayaran')->name('dataPembayaran');
+    Route::get('/admin/pengiriman', 'dataPengiriman')->name('dataPengiriman');
     Route::post('/admin/verifikasiPembayaran', 'verifikasiPembayaran')->name('verifikasiPembayaran');
+    Route::post('/admin/verifikasiPengiriman', 'verifikasiPengiriman')->name('verifikasiPengiriman');
 });
 
 
@@ -77,4 +79,7 @@ Route::controller(OrderController::class)->group(function () {
     Route::post('co/buynow', 'store')->name('buatOrder')->middleware('loginUser');
     Route::get('riwayat', 'riwayat')->name('riwayat')->middleware('loginUser');
     Route::post('uploadPembayaran', 'uploadPembayaran')->name('uploadPembayaran')->middleware('loginUser');
+    Route::post('reuploadPembayaran', 'reuploadPembayaran')->name('reuploadPembayaran')->middleware('loginUser');
+    Route::post('barangDiterima', 'barangDiterima')->name('barangDiterima')->middleware('loginUser');
+    Route::post('beriReview', 'beriReview')->name('beriReview')->middleware('loginUser');
 });

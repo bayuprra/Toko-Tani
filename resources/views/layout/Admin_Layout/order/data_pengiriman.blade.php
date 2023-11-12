@@ -138,7 +138,7 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Tanggal</th>
-                                        <th>Customer</th>
+                                        <th>Nama Customer</th>
                                         <th>Detail</th>
                                     </tr>
                                 </thead>
@@ -150,9 +150,9 @@
                                     @foreach ($data as $p)
                                         <tr>
                                             <td>{{ $num++ }}</td>
-                                            <td>{{ Carbon::parse($p->created_at)->locale('id_ID')->isoFormat('D MMMM YYYY') .' Jam: ' .Carbon::parse($p->created_at)->locale('id_ID')->isoFormat('HH:mm:ss') }}
+                                            <td>{{ Carbon::parse($p->updated_at)->locale('id_ID')->isoFormat('D MMMM YYYY') .' Jam: ' .Carbon::parse($p->updated_at)->locale('id_ID')->isoFormat('HH:mm:ss') }}
                                             </td>
-                                            <td>{{ $p->customerNama }}</td>
+                                            <td>{{ $p->customerNama }} </td>
                                             <td class="d-flex flex-row" style="gap: 10px">
                                                 <button type="button" class="btn btn-warning btn-xs" style="width: 50%"
                                                     id="editButton" data-toggle="modal"
@@ -262,18 +262,10 @@
                                     <div class="row" style="height: 30vh; align-items:center;justify-content:center;">
                                         @if (!$p->pembayaranId)
                                             <p>Belum Ada Pembayaran</p>
-                                        @elseif ($p->pembayaranBukti == '0')
-                                            <p>Pembayaran Ditolak</p>
                                         @else
                                             <img class="buktibayar" src="{{ asset('pembayaran/' . $p->pembayaranBukti) }}"
                                                 alt="" style="height: 100%;width: 50%;align-items: center;">
                                         @endif
-
-
-
-
-
-
                                     </div>
                                 </div>
                             </div>
@@ -283,30 +275,33 @@
                                         <span class="tag bg-secondary">Info Pengiriman</span>
                                     </div>
                                     <div>
-                                        @if (intval($p->statusOrderId) > 3)
+                                        <form action="{{ route('verifikasiPengiriman') }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="order_id" value="{{ $p->id }}">
+                                            <input type="hidden" name="pengiriman_id" value="{{ $p->pengirimanId }}">
                                             <table class="table">
-
                                                 <tbody>
                                                     <tr>
                                                         <td class="pengiriman-kiri">Kurir</td>
-                                                        <td>{{ $p->pengirimanKurir }}</td>
+                                                        <td><input type="text" class="form-control" id="kurir"
+                                                                name="kurir" placeholder="Kurir Ekspedisi" required>
+                                                        </td>
                                                     </tr>
                                                     <tr>
                                                         <td class="pengiriman-kiri">No Resi</td>
-                                                        <td>{{ $p->pengirimanResi }}</td>
+                                                        <td><input type="text" class="form-control" id="resi"
+                                                                name="no_resi" placeholder="Nomor Resi" required></td>
                                                     </tr>
                                                     <tr>
-                                                        <td class="pengiriman-kiri">Alamat</td>
-                                                        <td>{{ $p->customerNama }}<br />{{ $p->customerPhone }}<br />{{ $p->customerAlamat }}
+                                                        <td>
+
+                                                            <button type="submit" class="btn btn-success">Perbaharui
+                                                                Data</button>
                                                         </td>
                                                     </tr>
                                                 </tbody>
                                             </table>
-                                        @else
-                                            <p>Belum Ada Pengiriman</p>
-                                        @endif
-
-
+                                        </form>
 
                                     </div>
                                 </div>
@@ -316,7 +311,6 @@
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
-                    </form>
 
                 </div>
                 <!-- /.modal-content -->
@@ -328,6 +322,22 @@
 
 @section('script')
     <script>
-        $(function() {});
+        $(function() {
+
+
+        });
+
+        function aksi(status) {
+            Swal.fire({
+                title: "Apakah Kamu Yakin?",
+                showCancelButton: true,
+                confirmButtonText: "Save",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $('#stat').val(status);
+                    $('#formVerifikasi').submit();
+                }
+            });
+        }
     </script>
 @endSection

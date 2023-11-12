@@ -15,7 +15,6 @@ class OrderController extends Controller
             'kategori'  => $this->kategoriModel->get(),
             'riwayat'   => $this->orderModel->getOrderById($id)
         );
-        dump($data);
         return view('layout/User_Layout/riwayat_order', $data);
     }
     public function store(Request $request)
@@ -65,5 +64,76 @@ class OrderController extends Controller
             return redirect()->back()->with('success', 'Pembayaran Berhasil Diupload');
         }
         return redirect()->back()->with('error', 'Pembayaran Gagal Diupload');
+    }
+
+    public function reuploadPembayaran(Request $request)
+    {
+        $data = $request->all();
+        $tanggalWaktu = now()->format('Y-m-d_H-i-s'); // Format tanggal dan waktu tanpa karakter non-valid
+        $data['bukti'] = $request->file('bukti') ?? '';
+        $extension = $data['bukti']->getClientOriginalExtension();
+        $name = $data['order_id'] . "-bayar-" . $tanggalWaktu . "." . $extension;
+
+        // Ganti karakter non-valid (spasi dan titik dua) dengan karakter underscore
+        $name = str_replace([' ', ':'], '_', $name);
+
+        $request->file('bukti')->move('pembayaran/', $name);
+        $data['bukti'] = $name;
+        $dataOrder = $this->orderModel->find($data['order_id']);
+        $updateData = $dataOrder->update([
+            'status_order_id' => 2,
+        ]);
+        $removePembayaran = $this->pembayaranModel::find($data['pembayaran_id']);
+        $deleteData = $removePembayaran->delete();
+
+        $inserted = array(
+            'order_id'     => intval($data['order_id']),
+            'bukti'   => $data['bukti'],
+            'status'  => 0,
+        );
+        $insertedPembayaran = $this->pembayaranModel::create($inserted);
+
+        if ($deleteData && $insertedPembayaran && $updateData) {
+            return redirect()->back()->with('success', 'Pembayaran Berhasil Diupload');
+        }
+        return redirect()->back()->with('error', 'Pembayaran Gagal Diupload');
+    }
+
+    public function barangDiterima(Request $request)
+    {
+        $data = $request->all();
+        $dataOrder = $this->orderModel->find($data['order_id']);
+        $updateData = $dataOrder->update([
+            'status_order_id' => 5,
+        ]);
+
+        $reviewData = array(
+            'order_id'      => $data['order_id'],
+            'star'          => "",
+            'review'        => "",
+            'status'        => 0
+        );
+        $insertedReview = $this->reviewModel::create($reviewData);
+
+        if ($updateData && $insertedReview) {
+            return redirect()->back()->with('success', 'Pembayaran Berhasil Diupload');
+        }
+        return redirect()->back()->with('error', 'Pembayaran Gagal Diupload');
+    }
+
+    public function beriReview(Request $request)
+    {
+        $data = $request->all();
+
+        $reviewData = $this->reviewModel->find($data['review_id']);
+        $updateData = $reviewData->update([
+            'star'          => $data['rating'],
+            'review'        => $data['review'],
+            'status'        => 1
+        ]);
+        if ($updateData) {
+            return redirect()->back()->with('success', 'Review Berhasil Diposting');
+        }
+        return redirect()->back()->with('error', 'Review Gagal Diposting');
     }
 }

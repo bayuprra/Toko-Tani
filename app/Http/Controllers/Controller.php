@@ -13,6 +13,8 @@ use App\Models\Kategori;
 use App\Models\Order;
 use App\Models\Produk;
 use App\Models\Pembayaran;
+use App\Models\Pengiriman;
+use App\Models\Review;
 
 class Controller extends BaseController
 {
@@ -24,7 +26,9 @@ class Controller extends BaseController
         $kategoriModel,
         $produkModel,
         $orderModel,
-        $pembayaranModel;
+        $pembayaranModel,
+        $pengirimanModel,
+        $reviewModel;
 
     public function __construct()
     {
@@ -35,5 +39,7 @@ class Controller extends BaseController
         $this->produkModel = new Produk();
         $this->orderModel = new Order();
         $this->pembayaranModel = new Pembayaran();
+        $this->pengirimanModel = new Pengiriman();
+        $this->reviewModel = new Review();
     }
 }

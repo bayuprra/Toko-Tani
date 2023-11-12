@@ -302,6 +302,17 @@ class AdminController extends Controller
         return view('layout/Admin_Layout/order/data_transaksi', $data);
     }
 
+    function dataPengiriman()
+    {
+        $data = array(
+            'title'     => "Data Pengiriman",
+            'folder'    => "Order",
+            'data'      => $this->pengirimanModel->getAllOrder(),
+        );
+        dump($data);
+        return view('layout/Admin_Layout/order/data_pengiriman', $data);
+    }
+
     public function verifikasiPembayaran(Request $request)
     {
         $data = $request->all();
@@ -316,7 +327,15 @@ class AdminController extends Controller
             $updateOrder = $order->update([
                 'status_order_id' => 3,
             ]);
-            if ($updateData && $updateOrder) {
+
+            $inserted = array(
+                'order_id'     => intval($data['order_id']),
+                'kurir'   => "",
+                'no_resi'  => "",
+                'status'        => 0,
+            );
+            $insertedPengiriman = $this->pengirimanModel::create($inserted);
+            if ($updateData && $updateOrder && $insertedPengiriman) {
 
                 return redirect()->back()->with('success', 'Pembayaran Berhasil Diverifikasi');
             }
@@ -335,5 +354,27 @@ class AdminController extends Controller
             return redirect()->back()->with('success', 'Pembayaran Berhasil Ditolak');
         }
         return redirect()->back()->with('error', 'Pembayaran Gagal Ditolak');
+    }
+
+    public function verifikasiPengiriman(Request $request)
+    {
+        $data = $request->all();
+        $order = $this->orderModel->find($data['order_id']);
+        $updateOrder = $order->update([
+            'status_order_id' => 4,
+        ]);
+
+        $inserted = array(
+            'kurir'   => $data['kurir'],
+            'no_resi'  => $data['no_resi'],
+            'status'        => 1,
+        );
+        $updatePengiriman = $this->pengirimanModel->find($data['pengiriman_id']);
+        $insertedPengiriman = $updatePengiriman->update($inserted);
+        if ($updateOrder && $insertedPengiriman) {
+
+            return redirect()->back()->with('success', 'Pengiriman Berhasil Diinput');
+        }
+        return redirect()->back()->with('error', 'Pengiriman Gagal Diinput');
     }
 }

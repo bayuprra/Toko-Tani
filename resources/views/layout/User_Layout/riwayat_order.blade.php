@@ -175,6 +175,100 @@
             width: 20%;
             font-weight: bold;
         }
+
+        .forRating .rating {
+            display: inline-block;
+        }
+
+        .forRating .rating input {
+            display: none;
+        }
+
+        .forRating .rating label {
+            float: right;
+            cursor: pointer;
+            color: #ccc;
+            transition: color 0.3s;
+        }
+
+        .forRating .rating label:before {
+            content: '\2605';
+            font-size: 30px;
+        }
+
+        .forRating .rating input:checked~label,
+        .forRating .rating label:hover,
+        .forRating .rating label:hover~label {
+            color: var(--color);
+            transition: color 0.3s;
+        }
+
+        .forRating .popup {
+            position: relative;
+            width: 100%;
+            height: fit-content;
+            background: #FFFFFF;
+            box-shadow: 0px 187px 75px rgba(0, 0, 0, 0.01), 0px 105px 63px rgba(0, 0, 0, 0.05), 0px 47px 47px rgba(0, 0, 0, 0.09), 0px 12px 26px rgba(0, 0, 0, 0.1), 0px 0px 0px rgba(0, 0, 0, 0.1);
+            border-radius: 13px;
+        }
+
+        .forRating .form {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 20px;
+            gap: 20px;
+        }
+
+        .forRating .icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background: #ECF1FD;
+            box-shadow: 0px 0.5px 0.5px #EFEFEF, 0px 1px 0.5px rgba(239, 239, 239, 0.5);
+            border-radius: 5px;
+        }
+
+
+
+        .forRating .input_field {
+            width: 100%;
+            height: 100px;
+            padding: 0 0 0 12px;
+            border-radius: 5px;
+            outline: none;
+            border: 1px solid #e5e5e5;
+            filter: drop-shadow(0px 1px 0px #efefef) drop-shadow(0px 1px 0.5px rgba(239, 239, 239, 0.5));
+            transition: all 0.3s cubic-bezier(0.15, 0.83, 0.66, 1);
+        }
+
+        .forRating .input_field:focus {
+            border: 1px solid transparent;
+            box-shadow: 0px 0px 0px 1px #2B2B2F;
+            background-color: transparent;
+        }
+
+        .forRating .form button.submit {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 18px;
+            gap: 10px;
+            width: 100%;
+            height: 42px;
+            background: linear-gradient(180deg, var(--color) 0%, var(--color) 50%, var(--color) 100%);
+            box-shadow: 0px 0.5px 0.5px #EFEFEF, 0px 1px 0.5px rgba(239, 239, 239, 0.5);
+            border-radius: 5px;
+            border: 0;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 12px;
+            line-height: 15px;
+            color: #ffffff;
+        }
     </style>
     <link rel="stylesheet" href="{{ asset('css/riwayatOrder.css') }}">
 @endSection
@@ -256,13 +350,25 @@
                                 </div>
                                 <div class="row buttUpDet ">
                                     <div class="col-12 mr-0 grupBut">
-                                        @if ($con === 5)
-                                            <button class="upload">Ulas</button>
-                                        @endif
+
                                         @if ($con === 1)
                                             <button type="button" class="upload" data-toggle="modal"
                                                 data-target="#modal-lg-update-{{ $ri->id }}">Upload
                                                 Pembayaran</button>
+                                        @endif
+                                        @if ($con === 4)
+                                            <form action="{{ route('barangDiterima') }}" method="post" id="terimaPesanan">
+                                                @csrf
+                                                <input type="hidden" name="order_id" value="{{ $ri->id }}">
+                                            </form>
+
+                                            <button type="button" id="ButtonTerimaPesanan"
+                                                class="upload bg-success">Pesanan
+                                                Diterima</button>
+                                        @endif
+                                        @if ($con === 5)
+                                            <button class="upload" data-toggle="modal"
+                                                data-target="#modal-lg-ulasan-{{ $ri->id }}">Ulas</button>
                                         @endif
                                         <button class="detail" data-toggle="modal"
                                             data-target="#modal-lg-detail-{{ $ri->id }}">Lihat Detail</button>
@@ -321,7 +427,7 @@
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle">Upload Bukti Pembayaran</h5>
+                            <h5 class="modal-title" id="exampleModalLongTitle">Detail Order</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -376,32 +482,6 @@
                                 <div class="col-12">
                                     <div class="task" draggable="false">
                                         <div class="tags">
-                                            <span class="tag bg-secondary">Biodata Customer</span>
-                                        </div>
-                                        <div>
-                                            <table class="table">
-                                                <tbody>
-                                                    <tr>
-                                                        <td class="pengiriman-kiri">Nama</td>
-                                                        <td>{{ $ri->customerNama }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="pengiriman-kiri">Nomor Telepon</td>
-                                                        <td>{{ $ri->customerPhone }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="pengiriman-kiri">Alamat</td>
-                                                        <td>{{ $ri->customerAlamat }}
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="task" draggable="false">
-                                        <div class="tags">
                                             <span class="tag bg-secondary">Bukti Pembayaran</span>
                                         </div>
                                         <div class="row"
@@ -411,22 +491,30 @@
                                             @elseif ($ri->pembayaranBukti == '0')
                                                 <p>Pembayaran Ditolak, Harap Upload Data yang Benar dan Jelas</p>
                                                 <br>
-                                                <div class="input-group mb-3">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text">Upload</span>
-                                                    </div>
-                                                    <form action="{{ route('uploadPembayaran') }}" method="post"
-                                                        enctype="multipart/form-data">
-                                                        @csrf
-                                                        <input type="hidden" name="order_id"
-                                                            value="{{ $ri->id }}">
-                                                        <div class="custom-file">
-                                                            <input type="file" class="custom-file-input"
-                                                                id="inputGroupFile01" name="bukti">
-                                                            <label class="custom-file-label" for="inputGroupFile01">Choose
-                                                                file</label>
-                                                        </div>
+                                                <div class="row">
+                                                    <div class="col-8">
+                                                        <div class="input-group mb-3">
+                                                            <form action="{{ route('reuploadPembayaran') }}"
+                                                                method="post" enctype="multipart/form-data">
+                                                                @csrf
+                                                                <input type="hidden" name="order_id"
+                                                                    value="{{ $ri->id }}">
+                                                                <input type="hidden" name="pembayaran_id"
+                                                                    value="{{ $ri->pembayaranId }}">
+                                                                <div class="custom-file">
+                                                                    <input type="file" class="custom-file-input"
+                                                                        id="inputGroupFile01" name="bukti">
+                                                                    <label class="custom-file-label"
+                                                                        for="inputGroupFile01">Choose
+                                                                        file</label>
+                                                                </div>
 
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <button type="submit" class="btn btn-primary">Upload</button>
+                                                        </form>
+                                                    </div>
                                                 </div>
                                             @else
                                                 <img class="buktibayar"
@@ -448,17 +536,17 @@
                                             <span class="tag bg-secondary">Info Pengiriman</span>
                                         </div>
                                         <div>
-                                            @if (intval($ri->statusOrderId) === 4)
+                                            @if (intval($ri->statusOrderId) > 3)
                                                 <table class="table">
 
                                                     <tbody>
                                                         <tr>
                                                             <td class="pengiriman-kiri">Kurir</td>
-                                                            <td>JNE</td>
+                                                            <td>{{ $ri->pengirimanKurir }}</td>
                                                         </tr>
                                                         <tr>
                                                             <td class="pengiriman-kiri">No Resi</td>
-                                                            <td>009876</td>
+                                                            <td>{{ $ri->pengirimanResi }}</td>
                                                         </tr>
                                                         <tr>
                                                             <td class="pengiriman-kiri">Alamat</td>
@@ -467,8 +555,7 @@
                                                         </tr>
                                                     </tbody>
                                                 </table>
-                                            @endif
-                                            @if (intval($ri->statusOrderId) === 3)
+                                            @elseif (intval($ri->statusOrderId) === 3)
                                                 <p>Penjual Akan Segera Mengemas Barang dan Mengirimkan Barang</p>
                                             @else
                                                 <p>Tidak Ada Info</p>
@@ -478,6 +565,63 @@
 
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="modal-lg-ulasan-{{ $ri->id }}" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Berikan Review</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row forRating">
+                                <div class="col-12">
+                                    <div class="popup">
+                                        <form class="form" method="POST" action="{{ route('beriReview') }}">
+                                            @csrf
+                                            <input type="hidden" name="review_id" value="{{ $ri->reviewId }}">
+                                            @php
+                                                $cek = $ri->reviewStar;
+
+                                            @endphp
+                                            <div class="rating">
+                                                <input value="5" name="rating" id="star5" type="radio"
+                                                    {{ $cek == 5 ? 'checked' : '' }}>
+                                                <label for="star5"></label>
+                                                <input value="4" name="rating" id="star4" type="radio"
+                                                    {{ $cek == 4 ? 'checked' : '' }}>
+                                                <label for="star4"></label>
+                                                <input value="3" name="rating" id="star3" type="radio"
+                                                    {{ $cek == 3 ? 'checked' : '' }}>
+                                                <label for="star3"></label>
+                                                <input value="2" name="rating" id="star2" type="radio"
+                                                    {{ $cek == 2 ? 'checked' : '' }}>
+                                                <label for="star2"></label>
+                                                <input value="1" name="rating" id="star1" type="radio"
+                                                    {{ $cek == 1 ? 'checked' : '' }}>
+                                                <label for="star1"></label>
+                                            </div>
+
+                                            <textarea class="form-control input_field" placeholder="Masukkan Review Anda" id="exampleFormControlTextarea1"
+                                                name="review" rows="3">{{ $ri->reviewReview }}</textarea>
+                                            <button class="submit">Submit</button>
+                                        </form>
+                                    </div>
+
+
                                 </div>
                             </div>
                         </div>
@@ -500,6 +644,17 @@
                 $('#myInput').trigger('focus')
             })
 
+            $("#ButtonTerimaPesanan").click(function() {
+                Swal.fire({
+                    title: "Apakah Kamu Yakin?",
+                    showCancelButton: true,
+                    confirmButtonText: "Ya",
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $('#terimaPesanan').submit();
+                    }
+                });
+            })
         });
     </script>
 @endSection

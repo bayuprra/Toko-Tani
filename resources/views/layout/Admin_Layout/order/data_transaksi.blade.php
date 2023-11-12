@@ -150,7 +150,7 @@
                                     @foreach ($data as $p)
                                         <tr>
                                             <td>{{ $num++ }}</td>
-                                            <td>{{ Carbon::parse($p->created_at)->locale('id_ID')->isoFormat('D MMMM YYYY') .' Jam: ' .Carbon::parse($p->created_at)->locale('id_ID')->isoFormat('HH:mm:ss') }}
+                                            <td>{{ Carbon::parse($p->pembayaranTgl)->locale('id_ID')->isoFormat('D MMMM YYYY') .' Jam: ' .Carbon::parse($p->pembayaranTgl)->locale('id_ID')->isoFormat('HH:mm:ss') }}
                                             </td>
                                             <td>{{ $p->customerNama }} </td>
                                             <td class="d-flex flex-row" style="gap: 10px">

@@ -309,6 +309,14 @@
         .blog-details .content blockquote {
             padding: 10px;
         }
+
+        .sidebar {
+            height: auto;
+        }
+
+        blockquote {
+            border-left: 0.7rem solid var(--color);
+        }
     </style>
 @endSection
 

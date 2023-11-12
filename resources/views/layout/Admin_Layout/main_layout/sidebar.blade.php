@@ -106,7 +106,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/order" class="nav-link">
+                            <a href="{{ route('dataPengiriman') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Data Pengiriman</p>
                             </a>
