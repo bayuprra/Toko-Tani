@@ -58,6 +58,7 @@ class Order extends Model
                 'review.status as reviewStatus',
                 'review.review as reviewReview'
             )->where('order.customer_id', $id)
+            ->orderBy('order.created_at', 'DESC')
             ->get();
     }
 

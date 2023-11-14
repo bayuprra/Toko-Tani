@@ -69,12 +69,11 @@ class OrderController extends Controller
     public function reuploadPembayaran(Request $request)
     {
         $data = $request->all();
-        $tanggalWaktu = now()->format('Y-m-d_H-i-s'); // Format tanggal dan waktu tanpa karakter non-valid
+        $tanggalWaktu = now()->format('Y-m-d_H-i-s');
         $data['bukti'] = $request->file('bukti') ?? '';
         $extension = $data['bukti']->getClientOriginalExtension();
         $name = $data['order_id'] . "-bayar-" . $tanggalWaktu . "." . $extension;
 
-        // Ganti karakter non-valid (spasi dan titik dua) dengan karakter underscore
         $name = str_replace([' ', ':'], '_', $name);
 
         $request->file('bukti')->move('pembayaran/', $name);
@@ -135,5 +134,18 @@ class OrderController extends Controller
             return redirect()->back()->with('success', 'Review Berhasil Diposting');
         }
         return redirect()->back()->with('error', 'Review Gagal Diposting');
+    }
+
+    public function cancelOrder(Request $request)
+    {
+        $data = $request->all();
+        $orderData = $this->orderModel->find($data['order_id']);
+        $updateData = $orderData->update([
+            'status_order_id' => 6,
+        ]);
+        if ($updateData) {
+            return redirect()->back()->with('success', 'Order Berhasil Dicancel');
+        }
+        return redirect()->back()->with('error', 'Order Gagal Dicancel');
     }
 }

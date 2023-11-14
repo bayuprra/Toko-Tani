@@ -82,4 +82,5 @@ Route::controller(OrderController::class)->group(function () {
     Route::post('reuploadPembayaran', 'reuploadPembayaran')->name('reuploadPembayaran')->middleware('loginUser');
     Route::post('barangDiterima', 'barangDiterima')->name('barangDiterima')->middleware('loginUser');
     Route::post('beriReview', 'beriReview')->name('beriReview')->middleware('loginUser');
+    Route::post('cancelOrder', 'cancelOrder')->name('cancelOrder')->middleware('loginUser');
 });

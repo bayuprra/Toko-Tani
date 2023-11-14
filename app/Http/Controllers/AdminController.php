@@ -318,6 +318,11 @@ class AdminController extends Controller
         $data = $request->all();
         $pembayaran = $this->pembayaranModel->find($data['pembayaran_id']);
 
+        $produk = $this->produkModel->find($data['produk_id']);
+        $updateProduk = $produk->update([
+            'qty'   => intval($produk['qty']) - intval($data['jumlah'])
+        ]);
+
         if ($data['stat'] == 1) {
             $updateData = $pembayaran->update([
                 'status' => 1,
@@ -335,7 +340,7 @@ class AdminController extends Controller
                 'status'        => 0,
             );
             $insertedPengiriman = $this->pengirimanModel::create($inserted);
-            if ($updateData && $updateOrder && $insertedPengiriman) {
+            if ($updateData && $updateOrder && $insertedPengiriman && $updateProduk) {
 
                 return redirect()->back()->with('success', 'Pembayaran Berhasil Diverifikasi');
             }

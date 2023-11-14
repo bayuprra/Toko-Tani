@@ -285,6 +285,8 @@
                                             id="formVerifikasi">
                                             @csrf
                                             <input type="hidden" name="order_id" value="{{ $p->id }}">
+                                            <input type="hidden" name="produk_id" value="{{ $p->produk_id }}">
+                                            <input type="hidden" name="jumlah" value="{{ $p->jumlah }}">
                                             <input type="hidden" name="pembayaran_id" value="{{ $p->pembayaranId }}">
                                             <input type="hidden" name="stat" value="" id="stat">
                                         </form>

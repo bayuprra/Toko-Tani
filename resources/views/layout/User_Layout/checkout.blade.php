@@ -656,7 +656,7 @@
                                                                                     id="jml" value="1"
                                                                                     style="width: 50%"
                                                                                     data-max="{{ $produk->qty }}"
-                                                                                    max="{{ $produk->qty }}">
+                                                                                    max="{{ $produk->qty }}" disabled>
                                                                                 <button id="plus"><i
                                                                                         class="bi bi-plus"></i></button>
                                                                             </div>

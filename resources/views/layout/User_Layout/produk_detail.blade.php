@@ -514,6 +514,9 @@
         });
         var productData = @json($produk);
 
+        console.log(productData);
+
+
         function subTotal(id) {
             var index = productData.findIndex(function(element) {
                 return element.id === id;
@@ -525,6 +528,18 @@
 
         $("#butBuy").click(function() {
             var produkId = $(this).data("produkid");
+            let che = 0;
+            productData.forEach(function(data, index) {
+                if (data.id === produkId) {
+                    if (data.qty < 1) {
+                        che++;
+                    }
+
+                }
+            });
+            if (che !== 0) {
+                return Swal.fire("Stok Habis");
+            }
             var url = "{{ route('copage') }}?produkId=" + produkId;
             window.location.href = url;
         })

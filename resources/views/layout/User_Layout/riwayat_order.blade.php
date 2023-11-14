@@ -314,7 +314,7 @@
 
                                         @php
                                             $con = intval($ri->statusOrderId);
-                                            $bac = 'bg-light';
+                                            $bac = 'bg-danger';
                                             $mess = $ri->statusOrder;
                                             if ($ri->pembayaranBukti == '0') {
                                                 $bac = 'bg-danger';
@@ -372,6 +372,13 @@
                                         @endif
                                         <button class="detail" data-toggle="modal"
                                             data-target="#modal-lg-detail-{{ $ri->id }}">Lihat Detail</button>
+                                        @if ($con === 1)
+                                            <button class="upload bg-danger" id="cancelOrder">Batalkan Pesanan</button>
+                                            <form action="{{ route('cancelOrder') }}" method="post" id="formCancelOrder">
+                                                @csrf
+                                                <input type="hidden" value="{{ $ri->id }}" name="order_id">
+                                            </form>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -439,7 +446,7 @@
                                         <div class="tags">
                                             @php
                                                 $con = intval($ri->statusOrderId);
-                                                $bac = 'bg-light';
+                                                $bac = 'bg-danger';
                                                 $statusOrder = $ri->statusOrder;
                                                 if ($ri->pembayaranBukti == '0') {
                                                     $bac = 'bg-danger';
@@ -479,16 +486,31 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12">
-                                    <div class="task" draggable="false">
-                                        <div class="tags">
-                                            <span class="tag bg-secondary">Bukti Pembayaran</span>
-                                        </div>
-                                        <div class="row"
-                                            style="height: 30vh; align-items:center;justify-content:center;">
-                                            @if (!$ri->pembayaranId)
+                                @if (!$ri->pembayaranId && $con !== 6)
+                                    <div class="col-12">
+                                        <div class="task" draggable="false">
+                                            <div class="tags">
+                                                <span class="tag bg-secondary">Bukti Pembayaran</span>
+                                            </div>
+                                            <div class="row"
+                                                style="height: 30vh; align-items:center;justify-content:center;">
                                                 <p>Belum Ada Pembayaran</p>
-                                            @elseif ($ri->pembayaranBukti == '0')
+                                                {{-- @else
+                                                <img class="buktibayar"
+                                                    src="{{ asset('pembayaran/' . $ri->pembayaranBukti) }}"
+                                                    alt="" style="height: 100%;width: 50%;align-items: center;"> --}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                @elseif ($ri->pembayaranBukti == '0')
+                                    <div class="col-12">
+                                        <div class="task" draggable="false">
+                                            <div class="tags">
+                                                <span class="tag bg-secondary">Bukti Pembayaran</span>
+                                            </div>
+                                            <div class="row"
+                                                style="height: 30vh; align-items:center;justify-content:center;">
+
                                                 <p>Pembayaran Ditolak, Harap Upload Data yang Benar dan Jelas</p>
                                                 <br>
                                                 <div class="row">
@@ -516,56 +538,52 @@
                                                         </form>
                                                     </div>
                                                 </div>
-                                            @else
+                                                {{-- @else
                                                 <img class="buktibayar"
                                                     src="{{ asset('pembayaran/' . $ri->pembayaranBukti) }}"
-                                                    alt="" style="height: 100%;width: 50%;align-items: center;">
-                                            @endif
-
-
-
-
-
-
+                                                    alt="" style="height: 100%;width: 50%;align-items: center;"> --}}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="task" draggable="false">
-                                        <div class="tags">
-                                            <span class="tag bg-secondary">Info Pengiriman</span>
-                                        </div>
-                                        <div>
-                                            @if (intval($ri->statusOrderId) > 3)
-                                                <table class="table">
+                                @endif
+                                @if ($con !== 6)
+                                    <div class="col-12">
+                                        <div class="task" draggable="false">
+                                            <div class="tags">
+                                                <span class="tag bg-secondary">Info Pengiriman</span>
+                                            </div>
+                                            <div>
+                                                @if (intval($ri->statusOrderId) > 3)
+                                                    <table class="table">
 
-                                                    <tbody>
-                                                        <tr>
-                                                            <td class="pengiriman-kiri">Kurir</td>
-                                                            <td>{{ $ri->pengirimanKurir }}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="pengiriman-kiri">No Resi</td>
-                                                            <td>{{ $ri->pengirimanResi }}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="pengiriman-kiri">Alamat</td>
-                                                            <td>{{ $ri->customerNama }}<br />{{ $ri->customerPhone }}<br />{{ $ri->customerAlamat }}
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            @elseif (intval($ri->statusOrderId) === 3)
-                                                <p>Penjual Akan Segera Mengemas Barang dan Mengirimkan Barang</p>
-                                            @else
-                                                <p>Tidak Ada Info</p>
-                                            @endif
+                                                        <tbody>
+                                                            <tr>
+                                                                <td class="pengiriman-kiri">Kurir</td>
+                                                                <td>{{ $ri->pengirimanKurir }}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="pengiriman-kiri">No Resi</td>
+                                                                <td>{{ $ri->pengirimanResi }}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="pengiriman-kiri">Alamat</td>
+                                                                <td>{{ $ri->customerNama }}<br />{{ $ri->customerPhone }}<br />{{ $ri->customerAlamat }}
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                @elseif (intval($ri->statusOrderId) === 3)
+                                                    <p>Penjual Akan Segera Mengemas Barang dan Mengirimkan Barang</p>
+                                                @else
+                                                    <p>Tidak Ada Info</p>
+                                                @endif
 
 
 
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                @endif
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -652,6 +670,18 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $('#terimaPesanan').submit();
+                    }
+                });
+            })
+
+            $("#cancelOrder").click(function() {
+                Swal.fire({
+                    title: "Cancel Order?",
+                    showCancelButton: true,
+                    confirmButtonText: "Ya",
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $('#formCancelOrder').submit();
                     }
                 });
             })
