@@ -40,10 +40,18 @@ class AdminController extends Controller
         if (!$dataForm['phone']) {
             $dataForm['phone'] = " ";
         }
-        if (!$dataForm['alamat']) {
-            $dataForm['alamat'] = " ";
-        }
-        $updateData = $data->update($dataForm);
+        $prov = "Kep. Bangka Belitung";
+        $kab = $dataForm['kabupaten'];
+        $kec = $dataForm['kecamatan'] ?? $dataForm['kec'];
+        $det = $dataForm['detail'];
+        $newDet = str_replace(",", " ", $det);
+        $alamat = $newDet . ", Kecamatan " . $kec . ", Kabupaten " . $kab . ", Provinsi " . $prov;
+        $updateData = $data->update([
+            'nama'      => $dataForm['nama'],
+            'phone'     => $dataForm['phone'],
+            'alamat'    => $alamat,
+            'email'     => $dataForm['email']
+        ]);
         if ($updateData) {
             return redirect()->back()->with('success', 'Customer Berhasil Diubah');
         }
@@ -288,7 +296,6 @@ class AdminController extends Controller
             'data'      => $this->orderModel->getAllOrder(),
             'pembayaran' => $this->pembayaranModel->get()
         );
-        dump($data);
         return view('layout/Admin_Layout/order/data_order', $data);
     }
     function dataPembayaran()
@@ -298,7 +305,6 @@ class AdminController extends Controller
             'folder'    => "Order",
             'data'      => $this->pembayaranModel->getAllOrder(),
         );
-        dump($data);
         return view('layout/Admin_Layout/order/data_transaksi', $data);
     }
 
@@ -309,7 +315,6 @@ class AdminController extends Controller
             'folder'    => "Order",
             'data'      => $this->pengirimanModel->getAllOrder(),
         );
-        dump($data);
         return view('layout/Admin_Layout/order/data_pengiriman', $data);
     }
 
