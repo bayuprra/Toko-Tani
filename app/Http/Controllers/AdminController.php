@@ -139,28 +139,50 @@ class AdminController extends Controller
     public function updateProduk(Request $request, $id)
     {
         $dataForm = $request->all();
-        $dataForm['gambar'] = $request->file('gambar') ?? '';
-        $data = $this->produkModel->find($id);
 
-        if ($dataForm['gambar'] && $dataForm['gambar'] != $data['gambar'] && $data['gambar'] != "default.png") {
-            $path = public_path('produk/' . $data['gambar']);
-            if (File::exists($path)) {
-                File::delete($path);
+        // Check if a file is present in the request
+        if ($request->hasFile('gambar')) {
+            $dataForm['gambar'] = $request->file('gambar');
+
+            // Delete the old file if it exists and is not the default image
+            $data = $this->produkModel->find($id);
+            if ($data->gambar !== "default.png") {
+                $path = public_path('produk/' . $data->gambar);
+                if (File::exists($path)) {
+                    File::delete($path);
+                }
             }
+
+            // Handle file upload
+            $merk = $this->merkModel->find(intval($dataForm['merk']));
+            $name = $merk->nama . $dataForm['nama'] . ".png";
+
+            // Check if a file with the same name already exists
+            while ($this->produkModel->where('gambar', '=', $name)->first()) {
+                $name = $this->random_string() . ".png";
+            }
+
+            // Move the file to the destination folder
+            $dataForm['gambar']->move('produk/', $name);
+
+            // Update the data with the new file name
+            $dataForm['gambar'] = $name;
+        } else {
+            // If no file is present, remove the 'gambar' key from the dataForm
+            unset($dataForm['gambar']);
         }
-        $merk = $this->merkModel->find(intval($dataForm['merk']));
-        $name = $merk->nama . $dataForm['nama'] . ".png";
-        if ($this->produkModel->where('gambar', '=', $name)->first()) {
-            $name = $this->random_string() . ".png";
-        }
-        $request->file('gambar')->move('produk/', $name);
-        $dataForm['gambar'] = $name;
+
+        // Update the data in the database
+        $data = $this->produkModel->find($id);
         $updateData = $data->update($dataForm);
+
         if ($updateData) {
             return redirect()->back()->with('success', 'Produk Berhasil Diubah');
         }
+
         return redirect()->back()->with('error', 'Produk Gagal Diubah');
     }
+
 
     /**\ Delete */
     public function deleteProduk($id)
