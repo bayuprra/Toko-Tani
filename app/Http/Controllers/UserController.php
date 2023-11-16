@@ -12,7 +12,8 @@ class UserController extends Controller
         $data = array(
             'title'     => "Home",
             'kategori'  => $this->kategoriModel->get(),
-            'produk'    => $this->produkModel->get()
+            'produk'    => $this->produkModel->get(),
+            'testi'     => $this->reviewModel->userReview()
         );
         return view('layout/User_Layout/main_layout/main', $data);
     }
@@ -29,9 +30,9 @@ class UserController extends Controller
             'title'         => "Kategori",
             'kategori'      => $this->kategoriModel->get(),
             'dataKategori'  => $dataKategori,
-            'data'          => $dataProduk
+            'data'          => $dataProduk,
+            'star'          => $this->reviewModel->getAvgReviewByMerk() ?? ""
         );
-        // dd($data);
         return view('layout/User_Layout/produk', $data);
     }
 
@@ -39,16 +40,15 @@ class UserController extends Controller
     {
         $dataKategori = $this->kategoriModel->where('nama', strtoupper($kategori))->first();
         $dataProduk = $this->merkModel->where('nama', $produk)->get()->first();
-
         $data = array(
             'title'         => "Produk",
             'kategori'      => $this->kategoriModel->get(),
             'dataKategori'  => $dataKategori,
             'dataProduk'    => $dataProduk,
+            'review'        => $this->reviewModel->getReviewByMerk($dataProduk->id),
             'produk'        => $this->produkModel->produkByKategoriMerkId($dataKategori['id'], $dataProduk['id']) ?? ""
         );
         session(['produk'   => $data['produk']]);
-
         return view('layout/User_Layout/produk_detail', $data);
     }
     public function checkout(Request $request)
@@ -127,5 +127,56 @@ class UserController extends Controller
             return redirect()->back()->with('success', 'Data Berhasil Diubah');
         }
         return redirect()->back()->with('error', 'Data Gagal Diubah');
+    }
+
+    public function pencarian(Request $request)
+    {
+        $produk = $request['cari'];
+        $dataProduk = $this->merkModel->produkSearch($produk)->paginate(9);
+        if ($dataProduk[0] == null) {
+            $dataKategori = null;
+        } else {
+            $dataKategori = $this->kategoriModel->where('id', $dataProduk[0]->kategori_produk_id)->first();
+        }
+        $data = array(
+            'title'         => "Kategori",
+            'kategori'      => $this->kategoriModel->get(),
+            'dataKategori'  => $dataKategori,
+            'data'          => $dataProduk,
+            'star'          => $this->reviewModel->getAvgReviewByMerk() ?? ""
+
+        );
+
+        return view('layout/User_Layout/produk', $data);
+    }
+
+    public function keranjang()
+    {
+        $id = session()->get('data')->id_customer;
+
+        $data = array(
+            'title'         => "Keranjang",
+            'kategori'      => $this->kategoriModel->get(),
+            'cart'        => $this->keranjangModel->getById($id)
+        );
+        return view('layout/User_Layout/keranjang', $data);
+    }
+
+    public function addKeranjang(Request $request)
+    {
+        $id = session()->get('data')->id_customer;
+        $data = $request->all();
+        $dataToinsert = ([
+            'produk_id'     => $data['produk_id'],
+            'customer_id'   => $id,
+            'jumlah'        => $data['jumlah']
+        ]);
+
+        $inserted = $this->keranjangModel::create($dataToinsert);
+
+        if ($inserted) {
+            return redirect()->back()->with('cartSuccess', 'Produk Berhasil Ditambahkan ke Keranjang');
+        }
+        return redirect()->back()->with('cartError', 'Produk Gagal Ditambahkan ke Keranjang');
     }
 }

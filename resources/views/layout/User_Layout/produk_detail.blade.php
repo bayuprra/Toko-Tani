@@ -321,6 +321,10 @@
 @endSection
 
 @section('content')
+    @php
+        use Illuminate\Support\Carbon;
+
+    @endphp
     <main id="main">
 
         <!-- Blog Page Title & Breadcrumbs -->
@@ -419,23 +423,31 @@
                             <h4 class="comments-count">Review</h4>
 
                             <div id="comment-2" class="comment">
-                                <div class="d-flex">
-                                    <div>
-                                        <h5>Aron Alvarado <a href="#" class="reply"><i class="bi bi-reply-fill"></i>
-                                                Reply</a></h5>
-                                        <div class="stars">
-                                            <i class="bi bi-star-fill yes"></i><i class="bi bi-star-fill yes"></i><i
-                                                class="bi bi-star-fill yes"></i><i class="bi bi-star-fill yes"></i><i
-                                                class="bi bi-star-fill"></i>
+                                @foreach ($review as $rev)
+                                    <div class="d-flex">
+                                        <div>
+                                            <h5>{{ $rev->customerNama }}
+                                                <div class="stars">
+                                                    @php
+                                                        for ($i = 0; $i < $rev->star; $i++) {
+                                                            echo '<i class="bi bi-star-fill yes"></i>';
+                                                        }
+                                                    @endphp
+                                                    @php
+                                                        for ($i = 0; $i < 5 - $rev->star; $i++) {
+                                                            echo '<i class="bi bi-star-fill"></i>';
+                                                        }
+                                                    @endphp
+                                                </div>
+                                                <time
+                                                    datetime="2020-01-01">{{ Carbon::parse($rev->updated_at)->locale('id_ID')->isoFormat('D MMMM YYYY') }}</time>
+                                                <p>
+                                                    {{ $rev->review }}
+                                                </p>
                                         </div>
-                                        <time datetime="2020-01-01">01 Jan,2022</time>
-                                        <p>
-                                            Ipsam tempora sequi voluptatem quis sapiente non. Autem itaque eveniet saepe.
-                                            Officiis illo ut beatae.
-                                        </p>
                                     </div>
-                                </div>
-
+                                    <hr>
+                                @endforeach
                             </div><!-- End comment #2-->
 
                         </div><!-- End blog comments -->
@@ -481,7 +493,12 @@
                                     {{-- <a href="{{ route('copage') }}"> --}}
                                     <button id="butBuy" data-produkid="{{ $produk[0]->id }}">Beli</button>
                                     {{-- </a> --}}
-                                    <button>Keranjang</button>
+                                    <form action="{{ route('addKeranjang') }}" method="post" id="tambahKeranjang">
+                                        @csrf
+                                        <input type="hidden" name="produk_id" id="cartProduk">
+                                        <input type="hidden" name="jumlah" id="cartJumlah" value="1">
+                                    </form>
+                                    <button id="keranjang" data-produkid="{{ $produk[0]->id }}">Keranjang</button>
                                 </div>
                             </div>
 
@@ -522,6 +539,7 @@
                 return element.id === id;
             });
             $("#butBuy").data("produkid", id);
+            $("#keranjang").data("produkid", id);
             $('[class^="stok-"]').hide();
             $('.stok-' + id).show();
         }
@@ -542,6 +560,12 @@
             }
             var url = "{{ route('copage') }}?produkId=" + produkId;
             window.location.href = url;
+        });
+
+        $("#keranjang").click(function() {
+            var produkId = $(this).data("produkid");
+            $("#cartProduk").val(produkId);
+            $("#tambahKeranjang").submit();
         })
     </script>
     <script type="text/javascript">
@@ -553,42 +577,13 @@
                     return data;
                 });
             }
+            var shopSes = @json(session()->has('cartSuccess'));
+
+            if (shopSes) {
+                Swal.fire(@json(session('cartSuccess')));
+            }
 
 
-
-
-            const butPlus = $('#plus');
-            const butMinus = $('#minus');
-            const jmlInput = $('#jml');
-            const visibleElements = $('[class^="stok-"]:not(:hidden)');
-
-
-            butPlus.on('click', function() {
-                let jumlah = parseInt(jmlInput.val());
-                let matchFound = false;
-                for (let i = 0; i < visibleElements.length; i++) {
-                    console.log($(visibleElements[i]));
-                }
-
-                if (matchFound) {
-                    butPlus.prop("disabled", true); // Disable plus button
-                } else {
-                    jumlah += 1;
-                    jmlInput.val(jumlah);
-                    butMinus.prop("disabled", false);
-                }
-            });
-
-            butMinus.on('click', function() {
-                let jumlah = parseInt(jmlInput.val());
-                if (jumlah > 1) {
-                    jumlah -= 1;
-                    jmlInput.val(jumlah); // Update the input value
-                }
-                if (jumlah === 1) {
-                    butMinus.prop("disabled", true); // Disable the minus button when the value is 1
-                }
-            });
         });
     </script>
 @endSection

@@ -97,4 +97,16 @@ class Order extends Model
             ->orderBy('order.created_at', 'DESC')
             ->get();
     }
+
+    function allOrder()
+    {
+        return DB::table('order')->select(DB::raw('COUNT(id) as orderCount'))
+            ->get();
+    }
+    function statusOrder($id)
+    {
+        return DB::table('order')
+            ->where('status_order_id', $id)->select(DB::raw('COUNT(id) as orderCount'))
+            ->get();
+    }
 }

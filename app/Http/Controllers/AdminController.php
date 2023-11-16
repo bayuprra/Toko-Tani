@@ -16,6 +16,13 @@ class AdminController extends Controller
         return view('layout/Admin_Layout/dashboard', [
             'title'     => "Dashboard",
             'folder'    => "Home",
+            'allOrder'  => $this->orderModel->allOrder(),
+            'unpaid'     => $this->orderModel->statusOrder(1),
+            'process'     => $this->orderModel->statusOrder(3),
+            'cancel'     => $this->orderModel->statusOrder(6),
+            'send'     => $this->orderModel->statusOrder(4),
+            'plus'     => $this->orderModel->statusOrder(2),
+            'terima'     => $this->orderModel->statusOrder(5)
         ]);
     }
 

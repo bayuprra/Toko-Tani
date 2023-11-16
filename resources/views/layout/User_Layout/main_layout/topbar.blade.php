@@ -16,8 +16,12 @@
             <!-- Nav Menu -->
             <nav id="navmenu" class="navmenu">
                 <div class="searchBox">
-                    <input class="searchInput" type="text" name="" placeholder="Search something">
-                    <button class="searchButton" href="#"><i class="bi bi-search"></i>
+                    <form action="{{ route('cariProduk') }}" method="post" id="formCari">
+                        @csrf
+                        <input class="searchInput" type="text" name="cari" placeholder="Search something"
+                            autocomplete="off">
+                    </form>
+                    <button class="searchButton" id="cari" href="#"><i class="bi bi-search"></i>
                     </button>
                 </div>
                 <ul>
@@ -41,7 +45,7 @@
 
             <a class="btn shopCart" onclick="seachBar(1)"><i class="bi bi-search"></i></a>
             @if ($role == 'Customer')
-                <a class="btn shopCart" href="#"><i class="bi bi-cart-fill"></i></a>
+                <a class="btn shopCart" href="{{ route('keranjang') }}"><i class="bi bi-cart-fill"></i></a>
                 <a class="btn shopCart" href="{{ route('profil') }}"><i class="bi bi-person-fill"></i></a>
                 <a href="#" class="btn but-login" onclick="logout()" style="margin-right: 10px;">
                     <i class="fas fa-sign-out-alt mr-2"></i> Logout

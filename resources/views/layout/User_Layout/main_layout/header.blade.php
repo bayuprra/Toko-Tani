@@ -138,6 +138,10 @@
                 }
             })
         }
+
+        $("#cari").click(function() {
+            $("#formCari").submit();
+        })
     </script>
     @yield('script')
 

@@ -98,8 +98,8 @@
                 <div class="container">
                     <div class="row d-flex justify-content-center text-center">
                         <div class="col-lg-8">
-                            <h1>{{ $dataKategori->nama }}</h1>
-                            <p class="mb-0">{{ $dataKategori->deskripsi }}</p>
+                            <h1>{{ $dataKategori->nama ?? '' }}</h1>
+                            <p class="mb-0">{{ $dataKategori->deskripsi ?? '' }}</p>
                         </div>
                     </div>
                 </div>
@@ -108,7 +108,7 @@
                 <div class="container">
                     <ol>
                         <li><a href="/#services">{{ $title }}</a></li>
-                        <li class="current">{{ $dataKategori->nama }}</li>
+                        <li class="current">{{ $dataKategori->nama ?? '' }}</li>
                     </ol>
                 </div>
             </nav>
@@ -135,25 +135,52 @@
                                 </h2>
 
                                 <div class="d-flex align-items-center">
-                                    <div class="rating">
-                                        <input value="5" name="rate" id="star5" type="radio" disabled>
-                                        <label title="text" for="star5"></label>
-                                        <input value="4" name="rate" id="star4" type="radio" disabled>
-                                        <label title="text" for="star4"></label>
-                                        <input value="3" name="rate" id="star3" type="radio" disabled>
-                                        <label title="text" for="star3"></label>
-                                        <input value="2" name="rate" id="star2" type="radio" disabled checked>
-                                        <label title="text" for="star2"></label>
-                                        <input value="1" name="rate" id="star1" type="radio" disabled>
-                                        <label title="text" for="star1"></label>
-                                    </div>
+                                    @foreach ($star as $sta)
+                                        @if ($sta->merkId == $produk->merk_produk_id)
+                                            @php
+                                                $newAvg = 0;
+                                                $avg = (int) $sta->totalStar / $sta->jumlahReview;
+                                                if ($avg == 5) {
+                                                    $newAvg = 5;
+                                                } elseif ($avg < 5 && $avg > 3.9) {
+                                                    $newAvg = 4;
+                                                } elseif ($avg < 4 && $avg > 2.9) {
+                                                    $newAvg = 3;
+                                                } elseif ($avg < 3 && $avg > 2.9) {
+                                                    $newAvg = 2;
+                                                } else {
+                                                    $newAvg = 1;
+                                                }
+
+                                            @endphp
+                                            <div class="rating">
+                                                <input value="5" name="rate" id="star5" type="radio" disabled
+                                                    {{ $newAvg == 5 ? 'checked' : '' }}>
+                                                <label title="text" for="star5"></label>
+                                                <input value="4" name="rate" id="star4" type="radio" disabled
+                                                    {{ $newAvg == 4 ? 'checked' : '' }}>
+                                                <label title="text" for="star4"></label>
+                                                <input value="3" name="rate" id="star3" type="radio" disabled
+                                                    {{ $newAvg == 3 ? 'checked' : '' }}>
+                                                <label title="text" for="star3"></label>
+                                                <input value="2" name="rate" id="star2" type="radio" disabled
+                                                    {{ $newAvg == 2 ? 'checked' : '' }}>
+                                                <label title="text" for="star2"></label>
+                                                <input value="1" name="rate" id="star1" type="radio" disabled
+                                                    {{ $newAvg == 1 ? 'checked' : '' }}>
+                                                <label title="text" for="star1"></label>
+                                            </div>
+                                        @else
+                                            <p>Belum Ada Ulasan</p>
+                                        @endif
+                                    @endforeach
                                 </div>
 
                             </article>
                         </div><!-- End post list item -->
                     @endforeach
                     @if (count($data) < 1)
-                        <p>tidak ada produk</p>
+                        <p>Produk Tidak Ditemukan</p>
                     @endif
                 </div><!-- End blog posts list -->
                 {{ $data->links() }}

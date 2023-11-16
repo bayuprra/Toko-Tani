@@ -69,6 +69,10 @@ Route::controller(UserController::class)->group(function () {
     Route::get('user/{kategori}', 'kategori');
     Route::get('user/{kategori}/{produk}', 'produk');
 
+    Route::post('pencarian', 'pencarian')->name('cariProduk');
+    Route::get('keranjang', 'keranjang')->name('keranjang');
+    Route::post('keranjang', 'addKeranjang')->name('addKeranjang');
+
     Route::get('user/produk/varian/data', 'getVarian')->name('getstok');
     Route::get('user/produk/varian/checkout', 'checkout')->name('copage')->middleware('loginUser');
     Route::get('profil', 'profil')->name('profil');
