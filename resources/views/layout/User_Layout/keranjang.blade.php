@@ -566,7 +566,7 @@
             height: auto;
         }
 
-        #butBuy {
+        .butC {
             background-color: var(--color);
             border: none;
             border-radius: 8px;
@@ -677,11 +677,22 @@
                                     <div class="css-m6di7s ">
                                         <div class="shop-footer__subtotal">
                                             <div class="shop-footer__row">
-                                                <p data-unify="Typography" data-testid="lblSafSubtotal-2147991-175463858"
-                                                    class="css-1fqqzz-unf-heading e1qvo2ff8"></p>
+                                                <div data-unify="Tydivography"
+                                                    data-testid="lblSafSubtotal-2147991-175463858"
+                                                    class="css-1fqqzz-unf-heading e1qvo2ff8">
+                                                    <button id="hapCart-{{ $produk->keranjangId }}" class="hapCart butC"
+                                                        data-cart="{{ $produk->keranjangId }}">Hapus</button>
+                                                    <form action="{{ route('delCart') }}" method="post"
+                                                        id="formDelCart-{{ $produk->keranjangId }}">
+                                                        @csrf
+                                                        <input type="hidden" name="idCart"
+                                                            value="{{ $produk->keranjangId }}">
+                                                    </form>
+                                                </div>
                                                 <div class="sf-row-value subtotal">
-                                                    <button id="butBuy" data-produkid="{{ $produk->id }}"
-                                                        data-stok="{{ $produk->qty }}">Beli</button>
+                                                    <button id="butBuy-{{ $produk->keranjangId }}"
+                                                        data-produkid="{{ $produk->id }}"
+                                                        data-stok="{{ $produk->qty }}" class="bel butC">Beli</button>
 
                                                 </div>
                                             </div>
@@ -711,8 +722,16 @@
 @section('script')
     <script type="text/javascript">
         $(document).ready(function() {
-            $("#butBuy").click(function() {
+            var shopSes = @json(session()->has('success'));
+
+            if (shopSes) {
+                Swal.fire(@json(session('success')));
+            }
+
+
+            $(".bel").click(function() {
                 var produkId = $(this).data("produkid");
+
                 let che = $(this).data("stok");
                 if (che === 0) {
                     return Swal.fire("Stok Habis");
@@ -720,6 +739,21 @@
                 var url = "{{ route('copage') }}?produkId=" + produkId;
                 window.location.href = url;
             });
+
+            $(".hapCart").click(function() {
+                var id = $(this).data("cart");
+                Swal.fire({
+                    title: "Apakah Kamu Yakin?",
+                    showDenyButton: true,
+                    confirmButtonText: "Ya",
+                    denyButtonText: `Tidak`
+                }).then((result) => {
+                    if (result.isConfirmed) {
+
+                        $("#formDelCart-" + id).submit();
+                    }
+                });
+            })
 
             const butPlus = $('#plus');
             const butMinus = $('#minus');

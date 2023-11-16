@@ -29,7 +29,8 @@ class Keranjang extends Model
                 'produk.*',
                 'kategori_produk.nama as kategori',
                 'merk_produk.nama as merk',
-                'keranjang.jumlah as keranjangJumlah'
+                'keranjang.jumlah as keranjangJumlah',
+                'keranjang.id as keranjangId'
             )
             ->get();
     }

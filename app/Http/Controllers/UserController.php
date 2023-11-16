@@ -117,6 +117,21 @@ class UserController extends Controller
             "alamat"      => $alamat,
         );
 
+        $sess = session()->get('data');
+        $newSess = (object)[
+            'id'    => $sess->id,
+            'email'    => $sess->email,
+            'aktivasi'    => $sess->aktivasi,
+            'role_id'    => $sess->role_id,
+            'nama_role'    => $sess->nama_role,
+            'id_customer'    => $sess->id_customer,
+            'nama_customer'    => $data['nama'],
+            'phone_customer'    => $data['phone'],
+            'alamat_customer'    => $alamat,
+        ];
+
+        session()->put('data', $newSess);
+
         $accountData = $this->accountModel->find($customerData['account_id']);
         $accountDataEdit = array(
             'email' => $data['email']
@@ -157,7 +172,7 @@ class UserController extends Controller
         $data = array(
             'title'         => "Keranjang",
             'kategori'      => $this->kategoriModel->get(),
-            'cart'        => $this->keranjangModel->getById($id)
+            'cart'        => $this->keranjangModel->getById($id) ?? ""
         );
         return view('layout/User_Layout/keranjang', $data);
     }
@@ -178,5 +193,17 @@ class UserController extends Controller
             return redirect()->back()->with('cartSuccess', 'Produk Berhasil Ditambahkan ke Keranjang');
         }
         return redirect()->back()->with('cartError', 'Produk Gagal Ditambahkan ke Keranjang');
+    }
+
+    public function delCart(Request $request)
+    {
+        $data = $request->all();
+        $datadel = $this->keranjangModel->find(intval($data['idCart']));
+
+        $deleteData = $datadel->delete();
+        if ($deleteData) {
+            return redirect()->back()->with('success', 'Keranjang Berhasil Dihapus');
+        }
+        return redirect()->back()->with('error', 'Keranjang Gagal Dihapus');
     }
 }

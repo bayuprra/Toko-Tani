@@ -37,6 +37,7 @@ class AuthController extends Controller
         $insertedAccount = $this->accountModel::create($account);
         if ($insertedAccount) {
             $customer['account_id'] = $insertedAccount->id;
+            $customer['nama'] = $request->name;
             $customer['phone'] = "";
             $customer['alamat'] = "";
 
