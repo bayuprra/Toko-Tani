@@ -563,11 +563,16 @@
                                                             </tr>
                                                             <tr>
                                                                 <td class="pengiriman-kiri">No Resi</td>
-                                                                <td>{{ $ri->pengirimanResi }}</td>
+                                                                <td>{{ $ri->pengirimanResi }} </td>
                                                             </tr>
                                                             <tr>
                                                                 <td class="pengiriman-kiri">Alamat</td>
                                                                 <td>{{ $ri->customerNama }}<br />{{ $ri->customerPhone }}<br />{{ $ri->customerAlamat }}
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="pengiriman-kiri">Lacak</td>
+                                                                <td> <a href="https://cekresi.com/">Lacak</a>
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -684,7 +689,8 @@
                         $('#formCancelOrder').submit();
                     }
                 });
-            })
+            });
+
         });
     </script>
 @endSection
