@@ -49,9 +49,12 @@
                                 </thead>
                                 <tbody>
                                     <?php
+                                    $ids = [];
                                     $num = 1;
                                     ?>
                                     @foreach ($data as $p)
+                                        @php
+                                        $ids[] = $p->id; @endphp
                                         <tr>
                                             <td>{{ $num++ }}</td>
                                             <td>{{ $p->nama }}</td>
@@ -60,7 +63,7 @@
                                             <td>{{ $p->alamat }}</td>
                                             <td class="d-flex flex-row" style="gap: 10px">
                                                 <button type="button" class="btn btn-warning btn-xs" style="width: 50%"
-                                                    id="editButton" data-toggle="modal"
+                                                    id="editButton-{{ $p->id }}" data-toggle="modal"
                                                     data-target="#modal-lg-update-{{ $p->id }}"><i
                                                         class="fas fa-edit"></i></button>
                                                 <button type="button" class="btn  btn-danger btn-xs"
@@ -140,9 +143,10 @@
                                     @endphp
                                     <div class="form-group col-3">
                                         <label>Kabupaten</label>
-                                        <input type="hidden" name="kab" id="kab" value="{{ $kab ?? '' }}">
+                                        <input type="hidden" name="kab" id="kab-{{ $p->id }}"
+                                            value="{{ $kab ?? '' }}">
                                         <select class="form-control" aria-label="Default select example" name="kabupaten"
-                                            id="kabupaten" required>
+                                            id="kabupaten-{{ $p->id }}" required>
                                             <option value=" " selected="selected" disabled>Pilih</option>
                                             <option value="Bangka">Bangka</option>
                                             <option value="Bangka Barat">Bangka Barat</option>
@@ -154,11 +158,11 @@
                                     </div>
                                     <div class="form-group col-3">
                                         <label>Kecamatan</label>
-                                        <input type="hidden" name="kec" id="kec"
+                                        <input type="hidden" name="kec" id="kec-{{ $p->id }}"
                                             value="{{ $kec ?? '' }}">
 
                                         <select class="form-control" aria-label="Default select example" name="kecamatan"
-                                            id="kecamatan" required>
+                                            id="kecamatan-{{ $p->id }}" required>
                                         </select>
                                     </div>
                                 </div>
@@ -204,7 +208,6 @@
                 //         }],
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
 
-
             var kabupaten = [
                 "bangka",
                 "bangka barat",
@@ -221,30 +224,45 @@
                 "damar,dendang,gantung,kelapa kampit,manggar,simpang pesak,simpang renggiang",
                 "bukit intan,gabek,gerunggang,girimaya,pangkal balam,rangkui,taman sari"
             ];
-            var kabValue = $('#kab').val();
-            var kecValue = $('#kec').val();
 
-            if (kabValue !== "") {
-                $('#kabupaten').val(kabValue);
-            }
-            if (kecValue !== "") {
 
-                $('#kecamatan').html(`<option value="` + kecValue + `" selected="selected" disabled>` + kecValue +
-                    `</option>`);
-            }
-            $('#kabupaten').change(function() {
-                var val = $(this).val();
-                var index = kabupaten.indexOf(val.toLowerCase());
-                var dataKecamatan = kecamatan[index].split(",");
+            const allData = @json($ids);
+            $.each(allData, function(index, val) {
+                $('#editButton-' + val).click(function() {
+                    var kabValue = $('#kab-' + val).val();
+                    var kecValue = $('#kec-' + val).val();
+                    if (kabValue !== "") {
+                        $('#kabupaten-' + val).val(kabValue);
+                    }
+                    if (kecValue !== "") {
 
-                var kec = `<option value="" selected="selected" disabled>Pilih</option>`;
-                dataKecamatan.forEach(element => {
-                    kec += `<option value="` + element + `">` + element + `</option>`
+                        $('#kecamatan-' + val).html(`<option value="` + kecValue +
+                            `" selected="selected" disabled>` + kecValue +
+                            `</option>`);
+                    }
+
+                    $('#kabupaten-' + val).change(function() {
+                        console.log($(this).val());
+                        var valu = $(this).val();
+                        var index = kabupaten.indexOf(valu.toLowerCase());
+                        var dataKecamatan = kecamatan[index].split(",");
+
+                        var kec =
+                            `<option value="" selected="selected" disabled>Pilih</option>`;
+                        dataKecamatan.forEach(element => {
+                            kec += `<option value="` + element + `">` + element +
+                                `</option>`
+                        });
+                        $('#kecamatan-' + val).html(kec);
+
+                    });
                 });
-                $('#kecamatan').html(kec);
-
             });
+
+
         });
+
+
 
         function hapusCustomer(id) {
             Swal.fire({

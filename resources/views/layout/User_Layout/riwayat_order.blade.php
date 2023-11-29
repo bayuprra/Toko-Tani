@@ -392,7 +392,9 @@
         <!-- Button trigger modal -->
 
         <!-- Modal -->
+        @php $ids=[]; @endphp
         @foreach ($riwayat as $ri)
+            @php $ids[] = $ri->id @endphp
             <div class="modal fade" id="modal-lg-update-{{ $ri->id }}" tabindex="-1" role="dialog"
                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
@@ -612,30 +614,36 @@
                         <div class="modal-body">
                             <div class="row forRating">
                                 <div class="col-12">
-                                    <div class="popup">
+                                    <div class="popup" data-popup-id="{{ $ri->id }}">
+                                        <!-- Add data-popup-id attribute with the unique ID -->
                                         <form class="form" method="POST" action="{{ route('beriReview') }}">
                                             @csrf
                                             <input type="hidden" name="review_id" value="{{ $ri->reviewId }}">
+                                            <input type="hidden" name="id" value="{{ $ri->id }}">
                                             @php
                                                 $cek = $ri->reviewStar;
-
                                             @endphp
                                             <div class="rating">
-                                                <input value="5" name="rating" id="star5" type="radio"
+                                                <input value="5" name="rating-{{ $ri->id }}"
+                                                    id="star5-{{ $ri->id }}" type="radio"
                                                     {{ $cek == 5 ? 'checked' : '' }}>
-                                                <label for="star5"></label>
-                                                <input value="4" name="rating" id="star4" type="radio"
+                                                <label for="star5-{{ $ri->id }}"></label>
+                                                <input value="4" name="rating-{{ $ri->id }}"
+                                                    id="star4-{{ $ri->id }}" type="radio"
                                                     {{ $cek == 4 ? 'checked' : '' }}>
-                                                <label for="star4"></label>
-                                                <input value="3" name="rating" id="star3" type="radio"
+                                                <label for="star4-{{ $ri->id }}"></label>
+                                                <input value="3" name="rating-{{ $ri->id }}"
+                                                    id="star3-{{ $ri->id }}" type="radio"
                                                     {{ $cek == 3 ? 'checked' : '' }}>
-                                                <label for="star3"></label>
-                                                <input value="2" name="rating" id="star2" type="radio"
+                                                <label for="star3-{{ $ri->id }}"></label>
+                                                <input value="2" name="rating-{{ $ri->id }}"
+                                                    id="star2-{{ $ri->id }}" type="radio"
                                                     {{ $cek == 2 ? 'checked' : '' }}>
-                                                <label for="star2"></label>
-                                                <input value="1" name="rating" id="star1" type="radio"
+                                                <label for="star2-{{ $ri->id }}"></label>
+                                                <input value="1" name="rating-{{ $ri->id }}"
+                                                    id="star1-{{ $ri->id }}" type="radio"
                                                     {{ $cek == 1 ? 'checked' : '' }}>
-                                                <label for="star1"></label>
+                                                <label for="star1-{{ $ri->id }}"></label>
                                             </div>
 
                                             <textarea class="form-control input_field" placeholder="Masukkan Review Anda" id="exampleFormControlTextarea1"
@@ -643,10 +651,9 @@
                                             <button class="submit">Submit</button>
                                         </form>
                                     </div>
-
-
                                 </div>
                             </div>
+
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

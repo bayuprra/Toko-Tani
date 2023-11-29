@@ -124,8 +124,14 @@
                         <div class="col-xl-3 col-lg-2 col-2">
                             <article>
                                 <div class="post-img">
-                                    <img src="{{ asset('produk/' . $produk->gambar) }}" alt="{{ $produk->gambar }}"
-                                        class="img-fluid" style="width: 100%;height:100%">
+                                    @php
+                                        $gam = 'default.png';
+                                        if (file_exists(public_path('produk/' . $produk->gambar))) {
+                                            $gam = $produk->gambar;
+                                        }
+                                    @endphp
+                                    <img src="{{ asset('produk/' . $gam) }}" alt="{{ $gam }}" class="img-fluid"
+                                        style="width: 100%;height:100%">
                                 </div>
 
                                 <p class="post-category">{{ $produk->kategori }}</p>
@@ -136,7 +142,7 @@
 
                                 <div class="d-flex align-items-center">
                                     @foreach ($star as $sta)
-                                        @if ($sta->merkId == $produk->merk_produk_id)
+                                        @if ($sta->merkId == $produk->merk_produk_id && $sta->status != 0)
                                             @php
                                                 $newAvg = 0;
                                                 $avg = (int) $sta->totalStar / $sta->jumlahReview;
@@ -146,7 +152,7 @@
                                                     $newAvg = 4;
                                                 } elseif ($avg < 4 && $avg > 2.9) {
                                                     $newAvg = 3;
-                                                } elseif ($avg < 3 && $avg > 2.9) {
+                                                } elseif ($avg < 3 && $avg > 1.9) {
                                                     $newAvg = 2;
                                                 } else {
                                                     $newAvg = 1;
@@ -170,8 +176,6 @@
                                                     {{ $newAvg == 1 ? 'checked' : '' }}>
                                                 <label title="text" for="star1"></label>
                                             </div>
-                                        @else
-                                            <p>Belum Ada Ulasan</p>
                                         @endif
                                     @endforeach
                                 </div>

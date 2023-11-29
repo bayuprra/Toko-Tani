@@ -423,6 +423,9 @@
                             <h4 class="comments-count">Review</h4>
 
                             <div id="comment-2" class="comment">
+                                @if (count($review) === 0)
+                                    <p>Belum Ada Review</p>
+                                @endif
                                 @foreach ($review as $rev)
                                     <div class="d-flex">
                                         <div>

@@ -37,7 +37,7 @@ class Review extends Model
             ->join('order', 'review.order_id', '=', 'order.id')
             ->join('produk', 'produk.id', '=', 'order.produk_id')
             ->join('merk_produk', 'produk.merk_produk_id', '=', 'merk_produk.id')
-            ->select('merk_produk.id as merkId', DB::raw('COUNT(review.id) as jumlahReview'), DB::raw('SUM(review.star) as totalStar'))
+            ->select('merk_produk.id as merkId', DB::raw('COUNT(review.id) as jumlahReview'), DB::raw('SUM(review.star) as totalStar'), 'review.status as status')
             ->where('review.status', '!=', 0)
             ->groupBy('merk_produk.id')
             ->orderBy('merk_produk.id')

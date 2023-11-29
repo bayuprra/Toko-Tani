@@ -123,10 +123,10 @@ class OrderController extends Controller
     public function beriReview(Request $request)
     {
         $data = $request->all();
-
+        $ids = $data['id'];
         $reviewData = $this->reviewModel->find($data['review_id']);
         $updateData = $reviewData->update([
-            'star'          => $data['rating'],
+            'star'          => $data['rating-' . $ids],
             'review'        => $data['review'],
             'status'        => 1
         ]);
