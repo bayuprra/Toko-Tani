@@ -160,19 +160,24 @@
 
                                             @endphp
                                             <div class="rating">
-                                                <input value="5" name="rate" id="star5" type="radio" disabled
+                                                <input value="5" name="rate-{{ $sta->merkId }}"
+                                                    id="star5-{{ $sta->merkId }}" type="radio" disabled
                                                     {{ $newAvg == 5 ? 'checked' : '' }}>
                                                 <label title="text" for="star5"></label>
-                                                <input value="4" name="rate" id="star4" type="radio" disabled
+                                                <input value="4" name="rate-{{ $sta->merkId }}"
+                                                    id="star4-{{ $sta->merkId }}" type="radio" disabled
                                                     {{ $newAvg == 4 ? 'checked' : '' }}>
                                                 <label title="text" for="star4"></label>
-                                                <input value="3" name="rate" id="star3" type="radio" disabled
+                                                <input value="3" name="rate-{{ $sta->merkId }}"
+                                                    id="star3-{{ $sta->merkId }}" type="radio" disabled
                                                     {{ $newAvg == 3 ? 'checked' : '' }}>
                                                 <label title="text" for="star3"></label>
-                                                <input value="2" name="rate" id="star2" type="radio" disabled
+                                                <input value="2" name="rate-{{ $sta->merkId }}"
+                                                    id="star2-{{ $sta->merkId }}" type="radio" disabled
                                                     {{ $newAvg == 2 ? 'checked' : '' }}>
                                                 <label title="text" for="star2"></label>
-                                                <input value="1" name="rate" id="star1" type="radio" disabled
+                                                <input value="1" name="rate-{{ $sta->merkId }}"
+                                                    id="star1-{{ $sta->merkId }}" type="radio" disabled
                                                     {{ $newAvg == 1 ? 'checked' : '' }}>
                                                 <label title="text" for="star1"></label>
                                             </div>
